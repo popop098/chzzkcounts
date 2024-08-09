@@ -7,7 +7,6 @@ import {NextSeo} from "next-seo";
 
 export default function Counter({ name }) {
     const { data, isLoading, isError } = useInfo(name);
-    const [textColor, setTextColor] = useState("gray-200");
     const router = useRouter();
     useEffect(() => {
         let interval;
@@ -24,21 +23,17 @@ export default function Counter({ name }) {
             fetch(`/api/info?name=${name}`)
                 .then((res)=>res.json()).then((data)=>{
                 if(data.followerCount !== prevCount){
-                    setTextColor(data.followerCount > prevCount ? "green-500" : "red-500");
                     prevCount = data.followerCount;
                     countup.update(data.followerCount);
-                    setTimeout(() => {
-                        setTextColor("gray-200");
-                    }, 2000);
                 }
             });
         }, 5000);
-        return () => interval && clearInterval(interval);
+        return () => clearInterval(interval);
     }, []);
     return (
         <>
             <NextSeo
-                title={`${data?.channelName} 정보`}
+                title={`${data?.channelName}`}
                 description={`${data?.channelName} 채널의 팔로워 수를 실시간으로 제공합니다.`}
                 openGraph={{
                     title: `${data?.channelName} 실시간 팔로워 수`,
@@ -61,7 +56,7 @@ export default function Counter({ name }) {
                                onClick={()=>window.open('https://chzzk.naver.com/'+data.channelId)}/>
                         <h2 className="text-5xl font-bold">{data?.channelName}</h2>
                     </div>
-                    <span id="countEl" className={`font-extrabold sm:text-9xl text-8xl text-${textColor}`}>0</span>
+                    <span id="countEl" className={`font-extrabold sm:text-9xl text-8xl`}>0</span>
                 </div>
             </div>
         </>
