@@ -7,6 +7,7 @@ import {NextSeo} from "next-seo";
 
 export default function Counter({ name }) {
     const { data, isLoading, isError } = useInfo(name);
+    const [textColor, setTextColor] = useState('gray-200');
     const router = useRouter();
     useEffect(() => {
         let interval;
@@ -24,8 +25,12 @@ export default function Counter({ name }) {
             fetch(`/api/info?name=${name}`)
                 .then((res)=>res.json()).then((data)=>{
                 if(data.followerCount !== prevCount){
-                    prevCount = data.followerCount;
+                    setTextColor(data.followerCount > prevCount ? 'green-400' : 'red-400');
                     countup.update(data.followerCount);
+                    setTimeout(()=>{
+                        setTextColor('gray-200');
+                    }, 2500);
+                    prevCount = data.followerCount;
                 }
             });
         }, 5000);
@@ -57,7 +62,7 @@ export default function Counter({ name }) {
                                onClick={()=>window.open('https://chzzk.naver.com/'+data.channelId)}/>
                         <h2 className="text-5xl font-bold">{data?.channelName}</h2>
                     </div>
-                    <span id="countEl" className={`font-extrabold sm:text-9xl text-8xl`}>0</span>
+                    <span id="countEl" className={`font-extrabold sm:text-9xl text-8xl text-${textColor}`}>0</span>
                 </div>
             </div>
         </>
