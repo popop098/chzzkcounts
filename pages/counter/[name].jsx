@@ -26,6 +26,9 @@ export default function Counter({ name }) {
                 .then((res)=>res.json()).then((data)=>{
                     const currentCount = data.followerCount;
                     if(currentCount !== prevCount){
+                        /*
+                         setTextColor가 먹는것같긴한데 색상변경이 안먹음
+                         */
                         if(currentCount > prevCount){
                             console.log(`[${data.channelName}] ${prevCount} -> ${currentCount} (↑ ${currentCount-prevCount})`);
                             setTextColor('green-500');
