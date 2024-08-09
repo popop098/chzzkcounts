@@ -11,8 +11,9 @@ export default function Counter({ name }) {
     useEffect(() => {
         let interval;
         let prevCount = 0;
+        let countup;
         fetch(`/api/info?name=${name}`).then((res)=>res.json()).then((data)=>{
-            const countup = new CountUp("countEl", data.followerCount,{
+            countup = new CountUp("countEl", data.followerCount,{
                 startVal: 0,
                 duration: 5
             });
