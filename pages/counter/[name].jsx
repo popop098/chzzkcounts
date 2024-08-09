@@ -24,14 +24,21 @@ export default function Counter({ name }) {
         interval = setInterval(() => {
             fetch(`/api/info?name=${name}`)
                 .then((res)=>res.json()).then((data)=>{
-                if(data.followerCount !== prevCount){
-                    setTextColor(data.followerCount > prevCount ? 'green-500' : 'red-500');
-                    prevCount = data.followerCount;
-                    countup.update(data.followerCount);
-                    setTimeout(()=>{
-                        setTextColor('gray-200');
-                    }, 2500);
-                }
+                    const currentCount = data.followerCount;
+                    if(currentCount !== prevCount){
+                        if(currentCount > prevCount){
+                            console.log(`[${data.channelName}] ${prevCount} -> ${currentCount} (↑ ${currentCount-prevCount})`);
+                            setTextColor('green-500');
+                        } else {
+                            console.log(`[${data.channelName}] ${prevCount} -> ${currentCount} (↓ ${prevCount-currentCount})`);
+                            setTextColor('red-500');
+                        }
+                        prevCount = currentCount;
+                        countup.update(currentCount);
+                        setTimeout(()=>{
+                            setTextColor('gray-200');
+                        }, 2500);
+                    }
             });
         }, 5000);
         return () => clearInterval(interval);
