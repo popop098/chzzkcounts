@@ -25,12 +25,12 @@ export default function Counter({ name }) {
             fetch(`/api/info?name=${name}`)
                 .then((res)=>res.json()).then((data)=>{
                 if(data.followerCount !== prevCount){
-                    setTextColor(data.followerCount > prevCount ? 'green-400' : 'red-400');
+                    setTextColor(data.followerCount > prevCount ? 'green-500' : 'red-500');
+                    prevCount = data.followerCount;
                     countup.update(data.followerCount);
                     setTimeout(()=>{
                         setTextColor('gray-200');
                     }, 2500);
-                    prevCount = data.followerCount;
                 }
             });
         }, 5000);
