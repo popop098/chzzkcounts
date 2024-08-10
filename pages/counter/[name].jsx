@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from 'react';
+import { useEffect, useState } from 'react';
 import useInfo from "@/hooks/useInfo";
 import Image from "next/image";
 import {useRouter} from "next/router";

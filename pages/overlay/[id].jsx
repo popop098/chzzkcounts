@@ -1,7 +1,6 @@
-import { useEffect, useRef, useState } from 'react';
+import { useEffect, useState } from 'react';
 import useInfoById from "@/hooks/useInfoById";
 import Image from "next/image";
-import {useRouter} from "next/router";
 import {NextSeo} from "next-seo";
 import dynamic from "next/dynamic";
 
@@ -12,9 +11,7 @@ const Odometer = dynamic(import('react-odometerjs'), {
 
 export default function CounterById({ id, color }) {
     const { data, isLoading, isError } = useInfoById(id);
-    //const [textColor, setTextColor] = useState('gray-200');
     const [count, setCount] = useState(0);
-    const router = useRouter();
     useEffect(() => {
         let interval;
         fetch(`/api/info?id=${id}`).then((res)=>res.json()).then((data)=>{
@@ -25,9 +22,6 @@ export default function CounterById({ id, color }) {
                 .then((res)=>res.json()).then((data)=>{
                 const currentCount = data.followerCount;
                 setCount((prevState) => {
-                    //const change = currentCount - prevState;
-                    //console.log(`[${data.channelName}] ${prevState} -> ${currentCount} (${change > 0 ? '↑' : '↓'} ${Math.abs(change)})`);
-                    //setTextColor(change > 0 ? 'green-500' : 'red-500');
                     if(currentCount === prevState) return prevState;
                     return currentCount;
                 });
