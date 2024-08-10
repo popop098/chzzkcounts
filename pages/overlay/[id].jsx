@@ -4,9 +4,9 @@ import Image from "next/image";
 import {NextSeo} from "next-seo";
 import dynamic from "next/dynamic";
 
-const Odometer = dynamic(import('react-odometerjs'), {
+const Odometer = dynamic(() => import('react-odometerjs'), {
     ssr: false,
-    loading: () => 0
+    loading: () => <div>0</div>
 });
 
 export default function CounterById({ id, color }) {
