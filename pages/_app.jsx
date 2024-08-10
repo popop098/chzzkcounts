@@ -1,4 +1,5 @@
 import "@/styles/globals.css";
+import "odometer/themes/odometer-theme-default.css"
 import { QueryClient, QueryClientProvider} from 'react-query';
 import {useState} from "react";
 import {DefaultSeo} from "next-seo";

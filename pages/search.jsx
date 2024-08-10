@@ -41,7 +41,7 @@ export default function Search({q,initialResult}) {
     }, []);
 
     return (
-        <>
+        <div className="flex flex-col items-center h-screen">
             <NextSeo
                 title="검색"
                 description="실시간으로 팔로워 수를 확인하고 싶은 채널을 검색하세요."
@@ -53,7 +53,7 @@ export default function Search({q,initialResult}) {
                     siteName: '치지직 팔로워 라이브',
                 }}
             />
-            <div className="flex min-h-screen flex-col items-center gap-5 p-24 bg-[#141517] space-y-5">
+            <main className="flex h-full max-h-fit w-full flex-col items-center gap-5 p-24 bg-[#141517] space-y-5">
                 <div className="w-fit px-5 py-1 rounded-xl bg-gray-700 text-gray-200 text-xl hover:cursor-pointer"
                      onClick={() => router.back()}>
                     ◀ 이전
@@ -67,6 +67,14 @@ export default function Search({q,initialResult}) {
                             placeholder="스트리머 검색"
                             type="search"
                             defaultValue={q}
+                            onKeyDown={(e) => {
+                                try {
+                                    if (e.key === "Enter" && data.length >= 2) router.push("/search?q=" + keyword);
+                                    else if(e.key==="Enter"&&data.length===1) router.push("/counter/"+keyword);
+                                } catch (e) {
+                                    router.push("/search?q=" + search);
+                                }
+                            }}
                             onFocus={() => setFocused(true)}
                             onChange={(e) => setKeyword(e.target.value)}
                         />
@@ -94,7 +102,7 @@ export default function Search({q,initialResult}) {
                                                 <Image src={channel.channelImageUrl !== null && channel.channelImageUrl}
                                                        alt={channel.name} width={40} height={40}
                                                        className="rounded-full hover:cursor-pointer"
-                                                       onClick={()=>window.open('https://chzzk.naver.com/'+channel.channelId)}/>
+                                                       onClick={() => window.open('https://chzzk.naver.com/' + channel.channelId)}/>
                                                 <div className="ml-4">
                                                     <h2 className="text-white font-bold">{channel.channelName}</h2>
                                                     <p className="text-[#c9cedc]">{channel.channelDescription.length > 15 ? channel.channelDescription.slice(0, 15) + "..." : channel.channelDescription}</p>
@@ -111,7 +119,7 @@ export default function Search({q,initialResult}) {
                         )
                     }
                 </div>
-                <div className="flex flex-col gap-5 w-96">
+                <div className="flex flex-col gap-5 w-96 overflow-y-scroll overflow-x-hidden">
                     {
                         initialResult && initialResult.length > 1 ? initialResult.map((channel) => (
                             <div key={channel.id} className="flex items-center justify-between gap-5">
@@ -119,7 +127,7 @@ export default function Search({q,initialResult}) {
                                     <Image src={channel.channelImageUrl !== null && channel.channelImageUrl}
                                            alt={channel.name} width={40} height={40}
                                            className="rounded-full hover:cursor-pointer"
-                                           onClick={()=>window.open('https://chzzk.naver.com/'+channel.channelId)}/>
+                                           onClick={() => window.open('https://chzzk.naver.com/' + channel.channelId)}/>
                                     <div>
                                         <h2 className="text-white font-bold">{channel.channelName}</h2>
                                         <p className="text-[#c9cedc]">{channel.channelDescription.length > 15 ? channel.channelDescription.slice(0, 15) + "..." : channel.channelDescription}</p>
@@ -133,9 +141,14 @@ export default function Search({q,initialResult}) {
                         )) : <p className="text-white">검색 결과가 없습니다.</p>
                     }
                 </div>
-            </div>
-        </>
-
+            </main>
+            <footer className="flex items-center justify-center w-full py-1 bg-gray-700">
+                <p className="text-center text-gray-300">해당 사이트는 <span
+                    className="text-blue-600 hover:underline hover:cursor-pointer"
+                    onClick={() => window.open("https://github.com/popop098/chzzkcounts", "_blank")}>오픈소스</span>로
+                    공개되어있습니다.</p>
+            </footer>
+        </div>
     );
 
 }
