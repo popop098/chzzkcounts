@@ -56,7 +56,7 @@ export default function Home() {
                 <h1 className={`text-4xl text-white`}>치지직 팔로워 라이브</h1>
                 <div className="relative w-96">
                     <div ref={inputRef}
-                         className={`flex items-center bg-[#141517] rounded-3xl px-4 py-1 border-[0.1px] ${focused ? "border-[#06d086]" : "border-[#4d4d4d]"}`}>
+                         className={`flex items-center bg-[#141517] rounded-3xl pr-2 pl-4 py-1 border-[0.1px] ${focused ? "border-[#06d086]" : "border-[#4d4d4d]"}`}>
                         <input
                             className="text-[#c9cedc] w-full font-bold bg-[#141517] overflow-hidden overflow-ellipsis whitespace-nowrap outline-none"
                             placeholder="스트리머 검색"

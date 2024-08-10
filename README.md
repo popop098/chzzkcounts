@@ -40,6 +40,7 @@ yarn dev
   - 카운팅 라이브러리를 `countup.js`->`react-odometer.js` 로 변경
   - 채널 라이브 유무에 따른 채널 이미지 border 및 LIVE 배지 추가
   - 검색 `<input/>`에 `Enter` 키 입력 시 검색 기능 추가
+  - Search Box className 수정
 
 ## TODO
 - [ ] 카운트 업/다운에 따른 텍스트 색상 변경
