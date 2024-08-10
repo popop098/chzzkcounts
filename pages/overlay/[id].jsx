@@ -28,7 +28,7 @@ export default function CounterById({ id, color }) {
             });
         }, 2000);
         return () => clearInterval(interval);
-    }, []);
+    }, [id]);
     return (
         <>
             <NextSeo

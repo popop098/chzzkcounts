@@ -34,7 +34,7 @@ export default function Counter({ name }) {
             });
         }, 2000);
         return () => clearInterval(interval);
-    }, []);
+    }, [name]);
     return (
         <>
             <NextSeo
