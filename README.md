@@ -41,6 +41,25 @@ yarn dev
   - 채널 라이브 유무에 따른 채널 이미지 border 및 LIVE 배지 추가
   - 검색 `<input/>`에 `Enter` 키 입력 시 검색 기능 추가
   - Search Box className 수정
+  - OBS용 오버레이 추가
+
+## 오버레이 사용법
+1. OBS에서 브라우저 소스 추가
+2. URL에 `https://chzzkcounts.vercel.app/overlay/[자신의_채널_아이디]` 입력
+3. 너비, 높이, 위치, 크기 등을 조절하여 사용
+4. `?color=[색상명]`를 추가하여 텍스트 컬러를 조절할 수 있습니다.(옵션, 미입력시 기본 `white`사용)
+   - < 지원하는 색상 >
+     - `red`
+     - `green`
+     - `blue`
+     - `yellow`
+     - `purple`
+     - `pink`
+     - `orange`
+     - `cyan`
+     - `gray`
+     - `black`
+     - `white` (기본값)
 
 ## TODO
 - [ ] 카운트 업/다운에 따른 텍스트 색상 변경
