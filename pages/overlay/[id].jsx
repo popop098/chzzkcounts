@@ -9,7 +9,7 @@ const Odometer = dynamic(() => import('react-odometerjs'), {
     loading: () => <div>0</div>
 });
 
-export default function CounterById({ id, color }) {
+export default function CounterById({ id, color, live }) {
     const { data, isLoading, isError } = useInfoById(id);
     const [count, setCount] = useState(0);
     useEffect(() => {
@@ -51,14 +51,14 @@ export default function CounterById({ id, color }) {
                     <div className="flex flex-col items-center gap-5">
                         <div className="relative flex justify-center items-end">
                             {
-                                data?.openLive && (
+                                live === "y" && data?.openLive && (
                                     <div className="absolute px-3 py-0.5 bg-red-700 rounded-lg -mb-3 text-gray-200">
                                         <span className="text-sm font-bold">LIVE</span>
                                     </div>
                                 )
                             }
                             <Image src={data?.channelImageUrl} alt={data?.channelName} width={130} height={130}
-                                   className={`rounded-full p-1 ${data?.openLive && "border-2 border-[#06d086]"} hover:cursor-pointer`}
+                                   className={`rounded-full p-1 ${live === "y" && data?.openLive && "border-2 border-[#06d086]"} hover:cursor-pointer`}
                                    onClick={() => window.open('https://chzzk.naver.com/' + data.channelId)}
                                    loading="lazy"/>
                         </div>
@@ -78,5 +78,6 @@ export default function CounterById({ id, color }) {
 export async function getServerSideProps(context) {
     const {id} = context.params;
     const color = context.query.color || 'white';
-    return {props: {id,color}};
+    const live = context.query.live || 'y';
+    return {props: {id,color,live}};
 }
