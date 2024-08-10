@@ -55,10 +55,19 @@ export default function Home() {
                 className={`flex h-full w-full flex-col items-center justify-center gap-5 p-24 bg-[#141517] space-y-5`}>
                 <div className="flex flex-col items-center">
                     <h1 className={`text-4xl text-white`}>치지직 팔로워 라이브</h1>
-                    <div className="px-2 py-1 rounded-xl bg-gray-700 text-gray-200 text-sm hover:cursor-pointer hover:bg-gray-800"
-                        onClick={()=>router.push("/ovlyhelper")}>
-                        <p>오버레이 생성</p>
+                    <div className="flex items-center gap-2">
+                        <div
+                            className="px-2 py-1 rounded-xl bg-gray-700 text-blue-600 text-sm hover:cursor-pointer hover:bg-gray-800"
+                            onClick={() => window.open('https://github.com/popop098/chzzkcounts/blob/main/README.md', '_blank')}>
+                            <p>안내 및 사용법</p>
+                        </div>
+                        <div
+                            className="px-2 py-1 rounded-xl bg-gray-700 text-gray-200 text-sm hover:cursor-pointer hover:bg-gray-800"
+                            onClick={() => router.push("/ovlyhelper")}>
+                            <p>오버레이 생성</p>
+                        </div>
                     </div>
+
                 </div>
 
                 <div className="relative w-96">
