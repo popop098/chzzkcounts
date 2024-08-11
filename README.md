@@ -1,6 +1,10 @@
 # 치지직 실시간 팔로워 카운트
 이 프로젝트는 치지직 채널의 실시간 팔로워 수를 보여주는 프로젝트입니다.
 
+## 후원하기
+<a href="https://www.buymeacoffee.com/popop098"><img src="https://img.buymeacoffee.com/button-api/?text=Donation&emoji=❤️&slug=popop098&button_colour=FFDD00&font_colour=000000&font_family=Poppins&outline_colour=000000&coffee_colour=ffffff" /></a>
+- 사용하시는데에 불편함이 없으시도록 사이트내 광고를 게재하고 있지않습니다. 
+- 대신 위 후원버튼을 통해 개발에 도움을 주시면 감사하겠습니다.
 ## 사용 기술
 - Next.js
 - React-Query
