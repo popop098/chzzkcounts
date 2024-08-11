@@ -11,19 +11,19 @@ export default function Home() {
     const inputRef = useRef(null);
     const resultBoxRef = useRef(null);
     const router = useRouter();
-    const { data: searchResult, isLoading: searchLoading, error: searchError, isError: searchIsError } = useSearch(debouncedSearch, {
-        enabled: focused && debouncedSearch.length > 0
+    const { data: searchResult, isLoading: searchLoading, error: searchError, isError: searchIsError,isSuccess:searchIsSuccess } = useSearch(search, {
+        enabled: focused && search.length > 0
     });
 
-    useEffect(() => {
-        const handler = setTimeout(() => {
-            setDebouncedSearch(search);
-        }, 800);
-
-        return () => {
-            clearTimeout(handler);
-        };
-    }, [search]);
+    // useEffect(() => {
+    //     const handler = setTimeout(() => {
+    //         setDebouncedSearch(search);
+    //     }, 100);
+    //
+    //     return () => {
+    //         clearTimeout(handler);
+    //     };
+    // }, [search]);
 
     useEffect(() => {
         function handleClickOutside(event) {
@@ -73,16 +73,32 @@ export default function Home() {
                 <div className="relative w-96">
                     <div ref={inputRef}
                          className={`flex items-center bg-[#141517] rounded-3xl pr-2 pl-4 py-1 border-[0.1px] ${focused ? "border-[#06d086]" : "border-[#4d4d4d]"}`}>
+                        {/*<input*/}
+                        {/*    className="text-[#c9cedc] w-full font-bold bg-[#141517] overflow-hidden overflow-ellipsis whitespace-nowrap outline-none"*/}
+                        {/*    placeholder="스트리머 검색"*/}
+                        {/*    type="search"*/}
+                        {/*    onKeyDown={(e) => {*/}
+                        {/*        try {*/}
+                        {/*            if (e.key === "Enter" && !searchLoading && !searchError && !searchIsSuccess && searchResult.length >= 2) router.push("/search?q=" + search);*/}
+                        {/*            else if(e.key==="Enter" && !searchLoading && !searchError && !searchIsSuccess && searchResult.length===1) router.push("/counter/"+search);*/}
+                        {/*        } catch (e) {*/}
+                        {/*            router.push("/search?q=" + search);*/}
+                        {/*        }*/}
+                        {/*    }}*/}
+                        {/*    onFocus={() => setFocused(true)}*/}
+                        {/*    onChange={(e) => setSearch(e.target.value)}*/}
+                        {/*/>*/}
                         <input
                             className="text-[#c9cedc] w-full font-bold bg-[#141517] overflow-hidden overflow-ellipsis whitespace-nowrap outline-none"
                             placeholder="스트리머 검색"
                             type="search"
                             onKeyDown={(e) => {
-                                try {
-                                    if (e.key === "Enter" && searchResult.length >= 2) router.push("/search?q=" + search);
-                                    else if(e.key==="Enter"&&searchResult.length===1) router.push("/counter/"+search);
-                                } catch (e) {
-                                    router.push("/search?q=" + search);
+                                if (e.key === "Enter" && !searchLoading && !searchError && searchIsSuccess) {
+                                    if (searchResult?.length >= 2) {
+                                        router.push("/search?q=" + search);
+                                    } else if (searchResult?.length === 1) {
+                                        router.push("/counter/" + searchResult[0].channelName);
+                                    }
                                 }
                             }}
                             onFocus={() => setFocused(true)}
@@ -100,13 +116,13 @@ export default function Home() {
                             <div ref={resultBoxRef}
                                  className="absolute top-12 left-0 w-full bg-[#212325] rounded-xl max-h-64 overflow-y-scroll">
                                 {
-                                    searchLoading && <p className="text-white p-4">로딩 중...</p>
+                                    search.length >= 1 && searchLoading && <p className="text-white p-4">로딩 중...</p>
                                 }
                                 {
-                                    searchIsError && <p className="text-white p-4">에러 발생: {searchError.message}</p>
+                                    search.length >= 1 && searchIsError && <p className="text-white p-4">에러 발생: {searchError.message}</p>
                                 }
                                 {
-                                    searchResult && searchResult.length > 1 ? searchResult.map((channel) => (
+                                    searchResult && searchResult.length >= 1 ? searchResult.map((channel) => (
                                         <div key={channel.id} className="flex items-center justify-between px-8 py-3">
                                             <div className="flex items-center">
                                                 <Image src={channel.channelImageUrl !== null && channel.channelImageUrl} alt={channel.name} width={40}

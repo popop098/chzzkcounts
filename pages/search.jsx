@@ -8,7 +8,7 @@ export default function Search({q,initialResult}) {
     const [keyword, setKeyword] = useState(q);
     const [focused, setFocused] = useState(false);
     const [debouncedSearch, setDebouncedSearch] = useState(keyword);
-    const {data, isLoading, isError, error} = useSearch(debouncedSearch,{
+    const {data, isLoading, isError, error, isSuccess} = useSearch(debouncedSearch,{
         enabled: focused && debouncedSearch.length > 0
     });
     const inputRef = useRef();
@@ -96,7 +96,7 @@ export default function Search({q,initialResult}) {
                                     isError && <p className="text-white p-4">에러 발생: {error.message}</p>
                                 }
                                 {
-                                    data && data.length > 1 ? data.map((channel) => (
+                                    !isLoading && !isError && isSuccess && data && data.length >= 1 ? data.map((channel) => (
                                         <div key={channel.id} className="flex items-center justify-between px-8 py-3">
                                             <div className="flex items-center gap-2">
                                                 <Image src={channel.channelImageUrl !== null && channel.channelImageUrl}
@@ -121,7 +121,7 @@ export default function Search({q,initialResult}) {
                 </div>
                 <div className="flex flex-col gap-5 w-96 overflow-y-scroll overflow-x-hidden">
                     {
-                        initialResult && initialResult.length > 1 ? initialResult.map((channel) => (
+                        initialResult && initialResult.length >= 1 ? initialResult.map((channel) => (
                             <div key={channel.id} className="flex items-center justify-between gap-5">
                                 <div className="flex items-center gap-2">
                                     <Image src={channel.channelImageUrl !== null && channel.channelImageUrl}

@@ -38,10 +38,10 @@ export default function Counter({ name }) {
     return (
         <>
             <NextSeo
-                title={`${data?.channelName}`}
-                description={`${data?.channelName} 채널의 팔로워 수를 실시간으로 제공합니다.`}
+                title={`${data?.channelName || name}`}
+                description={`${data?.channelName || name} 채널의 팔로워 수를 실시간으로 제공합니다.`}
                 openGraph={{
-                    title: `${data?.channelName} 실시간 팔로워 수`,
+                    title: `${data?.channelName || name} 실시간 팔로워 수`,
                     type: 'website',
                     locale: 'ko_KR',
                     url: 'https://chzzkcounts.vercel.app/',
