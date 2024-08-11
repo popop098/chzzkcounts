@@ -21,11 +21,13 @@ export default function OvlyHelper() {
         setColor(e.target.value);
     }
 
-    const handleButtonClick = () => {
-        console.log(channelId, color);
+    const isValidHexFormat = (input) => {
+        const hexPattern = /^[a-f0-9]{32}$/i;
+        return hexPattern.test(input);
     }
     useEffect(() => {
         let interval;
+        setRandom(Math.floor(Math.random() * (100000 - 1000 + 1)) + 1000);
         interval = setInterval(() => {
             setRandom(Math.floor(Math.random() * (100000 - 1000 + 1)) + 1000);
         }, 7000);
@@ -59,10 +61,20 @@ export default function OvlyHelper() {
                     }
                     <div className="flex flex-col items-center gap-5">
                         <div className="flex flex-col items-center gap-5">
-                            <input type="text" placeholder="채널 ID"
-                                   value={channelId} onChange={handleChannelIdInputChange}
-                                   className="px-3 py-2 rounded-md bg-gray-700 text-gray-200 focus:outline-none focus:outline-1 focus:outline-[#06d086] w-full" />
-                            <select value={color} onChange={handleColorInputChange} className="px-3 py-2 rounded-md bg-gray-700 text-gray-200 w-full">
+                            <div className="flex flex-col items-center gap-1 w-full">
+                                <input type="text" placeholder="채널 ID"
+                                       value={channelId} onChange={handleChannelIdInputChange}
+                                       className={`px-3 py-2 rounded-md bg-gray-700 text-gray-200 outline-none ${channelId.length >= 1 && !isValidHexFormat(channelId) ? 'outline-1 outline-red-600' : 'focus:outline-1 focus:outline-[#06d086]'} w-full`}/>
+                                {
+                                    channelId.length >= 1 && !isValidHexFormat(channelId) && (
+                                        <p className="text-red-600">채널 ID가 올바르지 않습니다.</p>
+                                    )
+                                }
+                                <p className="text-gray-200 text-xs">
+                                    채널 ID는 {"'https://chzzk.naver.com/[이곳]'"}에 위치하고 있습니다.
+                                </p>
+                            </div>
+                            <select value={color} defaultValue="white" onChange={handleColorInputChange} className="px-3 py-2 rounded-md bg-gray-700 text-gray-200 w-full">
                                 <option value="red">빨강</option>
                                 <option value="green">초록</option>
                                 <option value="blue">파랑</option>
@@ -73,7 +85,7 @@ export default function OvlyHelper() {
                                 <option value="cyan">청록</option>
                                 <option value="gray">회색</option>
                                 <option value="black">검정</option>
-                                <option value="white" selected>흰색</option>
+                                <option value="white">흰색</option>
                             </select>
                             <div className="flex flex-col items-center gap-3 bg-gray-700 p-3 rounded-xl w-full">
                                 <h1 className="text-xl font-bold text-gray-200">라이브 모드</h1>
@@ -118,8 +130,11 @@ export default function OvlyHelper() {
                             </code>
                             <button
                                 onClick={() => copyToClipboard("https://chzzkcounts.vercel.app/overlay/" + (channelId.length >= 1 ? channelId : "") + (color.length >= 1 ? "?color=" + color : "") + (live === "y" ? "&live=y" : "&live=n"))}
-                                className="px-3 py-2 rounded-md bg-gray-700 text-gray-200 w-full"
-                                disabled={!(channelId.length >= 1 && color.length >= 1)}>생성
+                                className={`px-3 py-2 rounded-md ${!(channelId.length >= 1 && isValidHexFormat(channelId) && color.length >= 1) ? "bg-gray-800 hover:cursor-not-allowed":"bg-gray-700"} text-gray-200 w-full`}
+                                disabled={!(channelId.length >= 1 && isValidHexFormat(channelId) && color.length >= 1)}>
+                                {
+                                    !(channelId.length >= 1 && isValidHexFormat(channelId) && color.length >= 1) ? "생성불가" : "생성"
+                                }
                             </button>
                         </div>
                     </div>
