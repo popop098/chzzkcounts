@@ -3,11 +3,13 @@ import useSearch from "@/hooks/useSearch";
 import Image from "next/image";
 import { useRouter } from "next/router";
 import {NextSeo} from "next-seo";
+import useRecommend from "@/hooks/useRecommand";
+
 
 export default function Home() {
     const [search, setSearch] = useState('');
     const [focused, setFocused] = useState(false);
-    const [debouncedSearch, setDebouncedSearch] = useState(search);
+    const {data:recommendData,isError:recommendIsErr,isLoading:recommendIsLoading,isSuccess:recommendIsSuccess} = useRecommend();
     const inputRef = useRef(null);
     const resultBoxRef = useRef(null);
     const router = useRouter();
@@ -15,15 +17,6 @@ export default function Home() {
         enabled: focused && search.length > 0
     });
 
-    // useEffect(() => {
-    //     const handler = setTimeout(() => {
-    //         setDebouncedSearch(search);
-    //     }, 100);
-    //
-    //     return () => {
-    //         clearTimeout(handler);
-    //     };
-    // }, [search]);
 
     useEffect(() => {
         function handleClickOutside(event) {
@@ -73,21 +66,6 @@ export default function Home() {
                 <div className="relative w-96">
                     <div ref={inputRef}
                          className={`flex items-center bg-[#141517] rounded-3xl pr-2 pl-4 py-1 border-[0.1px] ${focused ? "border-[#06d086]" : "border-[#4d4d4d]"}`}>
-                        {/*<input*/}
-                        {/*    className="text-[#c9cedc] w-full font-bold bg-[#141517] overflow-hidden overflow-ellipsis whitespace-nowrap outline-none"*/}
-                        {/*    placeholder="스트리머 검색"*/}
-                        {/*    type="search"*/}
-                        {/*    onKeyDown={(e) => {*/}
-                        {/*        try {*/}
-                        {/*            if (e.key === "Enter" && !searchLoading && !searchError && !searchIsSuccess && searchResult.length >= 2) router.push("/search?q=" + search);*/}
-                        {/*            else if(e.key==="Enter" && !searchLoading && !searchError && !searchIsSuccess && searchResult.length===1) router.push("/counter/"+search);*/}
-                        {/*        } catch (e) {*/}
-                        {/*            router.push("/search?q=" + search);*/}
-                        {/*        }*/}
-                        {/*    }}*/}
-                        {/*    onFocus={() => setFocused(true)}*/}
-                        {/*    onChange={(e) => setSearch(e.target.value)}*/}
-                        {/*/>*/}
                         <input
                             className="text-[#c9cedc] w-full font-bold bg-[#141517] overflow-hidden overflow-ellipsis whitespace-nowrap outline-none"
                             placeholder="스트리머 검색"
@@ -111,43 +89,84 @@ export default function Home() {
                             검색
                         </button>
                     </div>
-                    {
-                        focused && (
-                            <div ref={resultBoxRef}
-                                 className="absolute top-12 left-0 w-full bg-[#212325] rounded-xl max-h-64 overflow-y-scroll">
-                                {
-                                    search.length >= 1 && searchLoading && <p className="text-white p-4">로딩 중...</p>
-                                }
-                                {
-                                    search.length >= 1 && searchIsError && <p className="text-white p-4">에러 발생: {searchError.message}</p>
-                                }
-                                {
-                                    searchResult && searchResult.length >= 1 ? searchResult.map((channel) => (
-                                        <div key={channel.id} className="flex items-center justify-between px-8 py-3">
-                                            <div className="flex items-center">
-                                                <Image src={channel.channelImageUrl !== null && channel.channelImageUrl} alt={channel.name} width={40}
-                                                       height={40}
-                                                       className="rounded-full hover:cursor-pointer"
-                                                        onClick={()=>window.open('https://chzzk.naver.com/'+channel.channelId)}/>
-                                                <div className="ml-4">
-                                                    <h2 className="text-white font-bold">{channel.channelName}</h2>
-                                                    <p className="text-[#c9cedc]">{channel.channelDescription.length > 15 ? channel.channelDescription.slice(0, 15) + "..." : channel.channelDescription}</p>
-                                                </div>
+                    <div className="flex flex-col items-center gap-5 w-full mt-3">
+                        <h2 className="text-white text-xl font-bold">추천 채널</h2>
+                        <div className="flex flex-col justify-between w-2/3 gap-4">
+                            {
+                                recommendIsLoading && <p className="text-white">로딩 중...</p>
+                            }
+                            {
+                                recommendIsErr && <p className="text-white">에러 발생: {recommendData.message}</p>
+                            }
+                            {
+                                recommendIsSuccess && recommendData && recommendData.length >= 1 ? recommendData.map((channel) => (
+                                    <div key={channel.id} className="flex items-center justify-between">
+                                        <div className="flex items-center">
+                                            <Image
+                                                src={channel.channelImageUrl !== null && channel.channelImageUrl}
+                                                alt={channel.name} width={60}
+                                                height={60}
+                                                className="rounded-full hover:cursor-pointer w-[60px] h-[60px]"
+                                                onClick={() => window.open('https://chzzk.naver.com/' + channel.channelId)}/>
+                                            <div className="ml-4">
+                                                <h2 className="text-white font-bold">{channel.channelName}</h2>
                                             </div>
-                                            <button className="bg-[#06d086] text-white rounded-3xl px-3 py-1 flex-none"
-                                                    onClick={() => router.push("/counter/" + channel.channelName)}>
-                                                선택
-                                            </button>
                                         </div>
-                                    )) : <p className="text-white p-4">검색 결과가 없습니다.</p>
-                                }
-                            </div>
-                        )
-                    }
+                                        <button
+                                            className="bg-[#06d086] text-white rounded-3xl px-3 py-1 flex-none"
+                                            onClick={() => router.push("/counter/" + channel.channelName)}>
+                                            선택
+                                        </button>
+                                    </div>
+                                )) : <p className="text-white">추천 채널이 없습니다.</p>
+                            }
+                        </div>
+                    </div>
+                    <div className="flex flex-col items-center gap-5">
+                        {
+                            focused && (
+                                <div ref={resultBoxRef}
+                                     className="absolute top-12 left-0 w-full bg-[#212325] rounded-xl max-h-64 overflow-y-scroll">
+                                    {
+                                        search.length >= 1 && searchLoading && <p className="text-white p-4">로딩 중...</p>
+                                    }
+                                    {
+                                        search.length >= 1 && searchIsError &&
+                                        <p className="text-white p-4">에러 발생: {searchError.message}</p>
+                                    }
+                                    {
+                                        searchResult && searchResult.length >= 1 ? searchResult.map((channel) => (
+                                            <div key={channel.id}
+                                                 className="flex items-center justify-between px-8 py-3">
+                                                <div className="flex items-center">
+                                                    <Image
+                                                        src={channel.channelImageUrl !== null && channel.channelImageUrl}
+                                                        alt={channel.name} width={40}
+                                                        height={40}
+                                                        className="rounded-full hover:cursor-pointer w-[40px] h-[40px]"
+                                                        onClick={() => window.open('https://chzzk.naver.com/' + channel.channelId)}/>
+                                                    <div className="ml-4">
+                                                        <h2 className="text-white font-bold">{channel.channelName}</h2>
+                                                        <p className="text-[#c9cedc]">{channel.channelDescription.length > 15 ? channel.channelDescription.slice(0, 15) + "..." : channel.channelDescription}</p>
+                                                    </div>
+                                                </div>
+                                                <button
+                                                    className="bg-[#06d086] text-white rounded-3xl px-3 py-1 flex-none"
+                                                    onClick={() => router.push("/counter/" + channel.channelName)}>
+                                                    선택
+                                                </button>
+                                            </div>
+                                        )) : <p className="text-white p-4">검색 결과가 없습니다.</p>
+                                    }
+                                </div>
+                            )
+                        }
+                    </div>
                 </div>
             </main>
             <footer className="flex items-center justify-center w-full h-10 bg-gray-700">
-                <p className="text-center text-gray-300">해당 사이트는 <span className="text-blue-600 hover:underline hover:cursor-pointer" onClick={()=>window.open("https://github.com/popop098/chzzkcounts","_blank")}>오픈소스</span>로 공개되어있습니다.</p>
+                <p className="text-center text-gray-300">해당 사이트는 <span
+                    className="text-blue-600 hover:underline hover:cursor-pointer" onClick={()=>window.open("https://github.com/popop098/chzzkcounts","_blank")}>오픈소스</span>로 공개되어있습니다.</p>
             </footer>
         </div>
 

@@ -59,13 +59,13 @@ export default function Counter({ name }) {
                         <div className="relative flex justify-center items-end">
                             {
                                 data?.openLive && (
-                                    <div className="absolute px-3 py-0.5 bg-red-700 rounded-lg -mb-3">
+                                    <div className="absolute px-3 py-0.5 bg-red-700 rounded-lg -mb-3 animate-pulse">
                                         <span className="text-sm font-bold">LIVE</span>
                                     </div>
                                 )
                             }
                             <Image src={data?.channelImageUrl} alt={data?.channelName} width={130} height={130}
-                                   className={`rounded-full p-1 ${data?.openLive && "border-2 border-[#06d086]"} hover:cursor-pointer`}
+                                   className={`rounded-full p-1 w-[130px] h-[130px] ${data?.openLive && "border-2 border-[#06d086]"} hover:cursor-pointer`}
                                    onClick={() => window.open('https://chzzk.naver.com/' + data.channelId)}
                                    loading="lazy"/>
                         </div>

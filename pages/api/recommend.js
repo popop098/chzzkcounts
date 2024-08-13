@@ -1,16 +1,15 @@
-// Next.js API route support: https://nextjs.org/docs/api-routes/introduction
-import axios from "axios";
 import {ChzzkClient} from "chzzk";
 export default async function handler(req, res) {
-  const chzzkApiUrl = "https://api.chzzk.naver.com/service/v1/home/recommendation-channels";
-  const resp = await fetch(chzzkApiUrl,{
-    method:"GET",
-    headers:{
-      "Accept":"application/json",
-      "Connection":"keep-alive",
-    }
+  const client = new ChzzkClient();
+  const result = await client.channel.recommendations();
+  const modifiedResult = result.map((channel) => {
+    return {
+      id: channel.channelId,
+      channelName: channel.channel.channelName,
+      channelDescription: channel.channel.channelDescription,
+      channelImageUrl: channel.channel.channelImageUrl,
+      openLive: channel.streamer.openLive,
+    };
   });
-  console.log(resp);
-    const data = await resp.json();
-    res.status(200).json(data);
+  res.status(200).json(modifiedResult.slice(0, 5));
 }

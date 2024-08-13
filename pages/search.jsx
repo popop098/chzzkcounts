@@ -101,7 +101,7 @@ export default function Search({q,initialResult}) {
                                             <div className="flex items-center gap-2">
                                                 <Image src={channel.channelImageUrl !== null && channel.channelImageUrl}
                                                        alt={channel.name} width={40} height={40}
-                                                       className="rounded-full hover:cursor-pointer"
+                                                       className="rounded-full hover:cursor-pointer w-[40px] h-[40px]"
                                                        onClick={() => window.open('https://chzzk.naver.com/' + channel.channelId)}/>
                                                 <div className="ml-4">
                                                     <h2 className="text-white font-bold">{channel.channelName}</h2>
@@ -126,7 +126,7 @@ export default function Search({q,initialResult}) {
                                 <div className="flex items-center gap-2">
                                     <Image src={channel.channelImageUrl !== null && channel.channelImageUrl}
                                            alt={channel.name} width={40} height={40}
-                                           className="rounded-full hover:cursor-pointer"
+                                           className="rounded-full hover:cursor-pointer w-[40px] h-[40px]"
                                            onClick={() => window.open('https://chzzk.naver.com/' + channel.channelId)}/>
                                     <div>
                                         <h2 className="text-white font-bold">{channel.channelName}</h2>

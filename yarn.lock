@@ -595,9 +595,9 @@ chokidar@^3.5.3:
     fsevents "~2.3.2"
 
 chzzk@^1.10.3:
-  version "1.10.3"
-  resolved "https://registry.yarnpkg.com/chzzk/-/chzzk-1.10.3.tgz#6d5163d87496d4e54c1ba570381b087560194845"
-  integrity sha512-WS9u1ozVNek0zWqjrho/oYnplrihYmFzx04wf76LyPK4crIi4oIAzluwtw6plUwSaPO19kN+ypR6ElzxThs6vw==
+  version "1.10.4"
+  resolved "https://registry.yarnpkg.com/chzzk/-/chzzk-1.10.4.tgz#8a773b9b4b2a3764e297f33df568b98cf6294da6"
+  integrity sha512-FIjZm9pi8ZE/OJQNXpUYL+mUY9HkTdNT3Ry0vvKR35qlhddf/Y5xJRpkZ8+GXD2ISqcDaxxEeDjHwqAcE58NMw==
   dependencies:
     isomorphic-ws "^5.0.0"
     ws "^8.15.1"
@@ -1490,9 +1490,9 @@ hyphenate-style-name@^1.0.3:
   integrity sha512-WDC/ui2VVRrz3jOVi+XtjqkDjiVjTtFaAGiW37k6b+ohyQ5wYDOGkvCZa8+H0nx3gyvv0+BST9xuOgIyGQ00gw==
 
 ignore@^5.2.0:
-  version "5.3.1"
-  resolved "https://registry.yarnpkg.com/ignore/-/ignore-5.3.1.tgz#5073e554cd42c5b33b394375f538b8593e34d4ef"
-  integrity sha512-5Fytz/IraMjqpwfd34ke28PTVMjZjJG2MPn5t7OE4eUCUNf8BAa7b5WUS9/Qvr6mwOQS7Mk6vdsMno5he+T8Xw==
+  version "5.3.2"
+  resolved "https://registry.yarnpkg.com/ignore/-/ignore-5.3.2.tgz#3cd40e729f3643fd87cb04e50bf0eb722bc596f5"
+  integrity sha512-hsBTNUqQTDwkWtcdYI2i06Y/nUBEsNEDJKjWdigLvegy8kDuJAS8uRlpkkcQpyEXL0Z/pjDy5HBmMjRCJ2gq+g==
 
 import-fresh@^3.2.1:
   version "3.3.0"
@@ -2272,9 +2272,9 @@ postcss-nested@^6.0.1:
     postcss-selector-parser "^6.1.1"
 
 postcss-selector-parser@^6.0.11, postcss-selector-parser@^6.1.1:
-  version "6.1.1"
-  resolved "https://registry.yarnpkg.com/postcss-selector-parser/-/postcss-selector-parser-6.1.1.tgz#5be94b277b8955904476a2400260002ce6c56e38"
-  integrity sha512-b4dlw/9V8A71rLIDsSwVmak9z2DuBUB7CA1/wSdelNEzqsjoSPeADTWNO09lpH49Diy3/JIZ2bSPB1dI3LJCHg==
+  version "6.1.2"
+  resolved "https://registry.yarnpkg.com/postcss-selector-parser/-/postcss-selector-parser-6.1.2.tgz#27ecb41fb0e3b6ba7a1ec84fff347f734c7929de"
+  integrity sha512-Q8qQfPiZ+THO/3ZrOrO0cJJKfpYCagtMUkXbnEfmgUjwXg6z/WBeOyS9APBBPCTSiDV+s4SwQGu8yFsiMRIudg==
   dependencies:
     cssesc "^3.0.0"
     util-deprecate "^1.0.2"
@@ -2672,7 +2672,6 @@ streamsearch@^1.1.0:
   integrity sha512-Mcc5wHehp9aXz1ax6bZUyY5afg9u2rv5cqQI3mRrYkGC8rW2hM02jWuwjtL++LS5qinSyhj2QfLyNsuc+VsExg==
 
 "string-width-cjs@npm:string-width@^4.2.0", string-width@^4.1.0:
-  name string-width-cjs
   version "4.2.3"
   resolved "https://registry.yarnpkg.com/string-width/-/string-width-4.2.3.tgz#269c7117d27b05ad2e536830a8ec895ef9c6d010"
   integrity sha512-wKyQRQpjJ0sIp62ErSZdGsjMJWsap5oRNihHhu6G7JVO/9jIB6UyevL+tXuOqrng8j/cxKTWyWUwvSTriiZz/g==
