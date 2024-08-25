@@ -67,7 +67,7 @@ export default function Counter({ name }) {
                             <Image src={data?.channelImageUrl} alt={data?.channelName} width={130} height={130}
                                    className={`rounded-full p-1 w-[130px] h-[130px] ${data?.openLive && "border-2 border-[#06d086]"} hover:cursor-pointer`}
                                    onClick={() => window.open('https://chzzk.naver.com/' + data.channelId)}
-                                   loading="lazy"/>
+                                   loading="lazy" unoptimized/>
                         </div>
 
                         <h2 className="text-5xl font-bold">{data?.channelName}</h2>

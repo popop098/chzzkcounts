@@ -102,7 +102,8 @@ export default function Search({q,initialResult}) {
                                                 <Image src={channel.channelImageUrl !== null && channel.channelImageUrl}
                                                        alt={channel.name} width={40} height={40}
                                                        className="rounded-full hover:cursor-pointer w-[40px] h-[40px]"
-                                                       onClick={() => window.open('https://chzzk.naver.com/' + channel.channelId)}/>
+                                                       onClick={() => window.open('https://chzzk.naver.com/' + channel.channelId)}
+                                                        unoptimized/>
                                                 <div className="ml-4">
                                                     <h2 className="text-white font-bold">{channel.channelName}</h2>
                                                     <p className="text-[#c9cedc]">{channel.channelDescription.length > 15 ? channel.channelDescription.slice(0, 15) + "..." : channel.channelDescription}</p>
@@ -127,7 +128,8 @@ export default function Search({q,initialResult}) {
                                     <Image src={channel.channelImageUrl !== null && channel.channelImageUrl}
                                            alt={channel.name} width={40} height={40}
                                            className="rounded-full hover:cursor-pointer w-[40px] h-[40px]"
-                                           onClick={() => window.open('https://chzzk.naver.com/' + channel.channelId)}/>
+                                           onClick={() => window.open('https://chzzk.naver.com/' + channel.channelId)}
+                                           unoptimized/>
                                     <div>
                                         <h2 className="text-white font-bold">{channel.channelName}</h2>
                                         <p className="text-[#c9cedc]">{channel.channelDescription.length > 15 ? channel.channelDescription.slice(0, 15) + "..." : channel.channelDescription}</p>
