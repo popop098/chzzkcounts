@@ -20,6 +20,14 @@ export default function App({ Component, pageProps }) {
           locale: 'ko_KR',
           url: 'https://chzzkcounts.vercel.app/',
           site_name: '치지직 팔로워 라이브',
+            images: [
+                {
+                    url: 'https://chzzkcounts.vercel.app/favicon.png',
+                    width: 512,
+                    height: 512,
+                    alt: '치지직 팔로워 라이브',
+                }
+            ]
         }}
         />
       <Component {...pageProps} />

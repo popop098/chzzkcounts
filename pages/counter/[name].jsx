@@ -44,8 +44,16 @@ export default function Counter({ name }) {
                     title: `${data?.channelName || name} 실시간 팔로워 수`,
                     type: 'website',
                     locale: 'ko_KR',
-                    url: 'https://chzzkcounts.vercel.app/',
+                    url: 'https://www.chzzkcounts.live/counter/'+data?.channelName || name,
                     siteName: '치지직 팔로워 라이브',
+                    images: [
+                        {
+                            url: data?.channelImageUrl || 'https://chzzkcounts.vercel.app/favicon.png',
+                            width: 512,
+                            height: 512,
+                            alt: '치지직 팔로워 라이브',
+                        }
+                    ]
                 }}
             />
             <div className="h-screen bg-[#141517] overflow-hidden p-5">
@@ -54,7 +62,7 @@ export default function Counter({ name }) {
                     ◀ 이전
                 </div>
                 <div
-                    className="flex flex-col h-full items-center justify-center gap-5 p-24 text-gray-200">
+                    className="flex flex-col h-full items-center justify-center gap-5 text-gray-200">
                     <div className="flex flex-col items-center gap-5">
                         <div className="relative flex justify-center items-end">
                             {
@@ -70,9 +78,15 @@ export default function Counter({ name }) {
                                    loading="lazy" unoptimized/>
                         </div>
 
-                        <h2 className="text-5xl font-bold">{data?.channelName}</h2>
+                        <h2 className="font-bold"
+                            style={{
+                                fontSize: "clamp(2rem, 5vw, 4rem)",
+                            }}>{data?.channelName}</h2>
                     </div>
-                    <div className={`font-extrabold sm:text-9xl text-8xl`}>
+                    <div className={`font-extrabold`}
+                        style={{
+                            fontSize: "clamp(4rem, 1.05rem+10vw, 9rem)",
+                        }}>
                         <Odometer value={count} format="(,ddd)" duration={2000}/>
                     </div>
                 </div>

@@ -42,8 +42,16 @@ export default function OvlyHelper() {
                     title: '오버레이 헬퍼',
                     type: 'website',
                     locale: 'ko_KR',
-                    url: 'https://chzzkcounts.vercel.app/ovlyhelper',
+                    url: 'https://www.chzzkcounts.live/ovlyhelper',
                     siteName: '치지직 팔로워 라이브',
+                    images: [
+                        {
+                            url: 'https://chzzkcounts.vercel.app/favicon.png',
+                            width: 512,
+                            height: 512,
+                            alt: '치지직 팔로워 라이브',
+                        }
+                    ]
                 }}
             />
             <main

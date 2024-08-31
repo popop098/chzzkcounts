@@ -38,8 +38,16 @@ export default function CounterById({ id, color, live }) {
                     title: `${data?.channelName} 실시간 팔로워 수`,
                     type: 'website',
                     locale: 'ko_KR',
-                    url: 'https://chzzkcounts.vercel.app/',
+                    url: 'https://www.chzzkcounts.live/overlay/'+id,
                     siteName: '치지직 팔로워 라이브',
+                    images: [
+                        {
+                            url: data?.channelImageUrl || 'https://chzzkcounts.vercel.app/favicon.png',
+                            width: 512,
+                            height: 512,
+                            alt: '치지직 팔로워 라이브',
+                        }
+                    ]
                 }}
             />
             <div className={`overflow-hidden w-fit`}

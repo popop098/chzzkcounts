@@ -49,8 +49,16 @@ export default function Search({q,initialResult}) {
                     title: '검색',
                     type: 'website',
                     locale: 'ko_KR',
-                    url: 'https://chzzkcounts.vercel.app/',
+                    url: 'https://www.chzzkcounts.live/search',
                     siteName: '치지직 팔로워 라이브',
+                    images: [
+                        {
+                            url: 'https://chzzkcounts.vercel.app/favicon.png',
+                            width: 512,
+                            height: 512,
+                            alt: '치지직 팔로워 라이브',
+                        }
+                    ]
                 }}
             />
             <main className="flex h-full max-h-fit w-full flex-col items-center gap-5 p-24 bg-[#141517] space-y-5">
