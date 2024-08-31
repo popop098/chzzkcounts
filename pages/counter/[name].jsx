@@ -85,7 +85,7 @@ export default function Counter({ name }) {
                     </div>
                     <div className={`font-extrabold`}
                         style={{
-                            fontSize: "clamp(4rem, 1.05rem+10vw, 9rem)",
+                            fontSize: "clamp(4rem, 10vw, 9rem)",
                         }}>
                         <Odometer value={count} format="(,ddd)" duration={2000}/>
                     </div>
