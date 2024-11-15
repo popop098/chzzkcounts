@@ -195,7 +195,7 @@ export default function Home() {
                                                             alt={channel.name} width={60}
                                                             height={60}
                                                             className="rounded-full hover:cursor-pointer w-[60px] h-[60px]"
-                                                            onClick={() => window.open('https://chzzk.naver.com/' + channel.channelId)}
+                                                            onClick={() => window.open('https://chzzk.naver.com/' + channel.id)}
                                                             unoptimized/>
                                                         <div className="ml-4">
                                                             <h2 className="text-white font-bold">{channel.channelName}</h2>
