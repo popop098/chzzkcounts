@@ -174,6 +174,7 @@ export default function Counter({ name,initalData }) {
 export async function getServerSideProps(context) {
     const {name} = context.params;
     const mainUrl = process.env.NODE_ENV === 'development' ? 'http://localhost:3000' : 'https://chzzkcounts.live';
-    const initialData = await fetch(mainUrl+'/api/info?name='+name).then((res) => res.json());
-    return {props: {name, initialData}};
+    const initalData = await fetch(mainUrl+'/api/info?name='+name).then((res) => res.json());
+    console.log(initalData);
+    return {props: {name, initalData}};
 }
