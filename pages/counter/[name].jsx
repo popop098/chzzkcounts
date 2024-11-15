@@ -25,7 +25,7 @@ const generateOgImage = ({channelName, followerCount, channelImageUrl, channelDe
     return u.href;
 }
 
-export default function Counter({ name }) {
+export default function Counter({ name,initalData }) {
     const { data, isLoading, isError } = useInfo(name);
     //const [textColor, setTextColor] = useState('gray-200');
     const [count, setCount] = useState(0);
@@ -74,21 +74,21 @@ export default function Counter({ name }) {
     return (
         <>
             <NextSeo
-                title={`${data?.channelName || name}`}
-                description={`${data?.channelName || name} 채널의 팔로워 수를 실시간으로 제공합니다.`}
+                title={`${initalData.channelName || name}`}
+                description={`${initalData.channelName || name} 채널의 팔로워 수를 실시간으로 제공합니다.`}
                 openGraph={{
-                    title: `${data?.channelName || name} 실시간 팔로워 수`,
+                    title: `${initalData.channelName || name} 실시간 팔로워 수`,
                     type: 'website',
                     locale: 'ko_KR',
-                    url: 'https://www.chzzkcounts.live/counter/'+data?.channelName || name,
+                    url: 'https://www.chzzkcounts.live/counter/'+initalData.channelName || name,
                     siteName: '치지직 팔로워 라이브',
                     images: [
                         {
                           url: generateOgImage({
-                                channelName: data?.channelName,
-                                followerCount: count,
-                                channelImageUrl: data?.channelImageUrl,
-                                channelDescription: data?.channelDescription
+                                channelName: initalData.channelName,
+                                followerCount: initalData.followerCount,
+                                channelImageUrl: initalData.channelImageUrl,
+                                channelDescription: initalData.channelDescription
                             }),
                             width: 1200,
                             height: 630,
@@ -173,5 +173,7 @@ export default function Counter({ name }) {
 
 export async function getServerSideProps(context) {
     const {name} = context.params;
-    return {props: {name}};
+    const mainUrl = process.env.NODE_ENV === 'development' ? 'http://localhost:3000' : 'https://chzzkcounts.live';
+    const initialData = await fetch(mainUrl+'/api/info?name='+name).then((res) => res.json());
+    return {props: {name, initialData}};
 }
