@@ -21,6 +21,7 @@ const generateOgImage = ({channelName, followerCount, channelImageUrl, channelDe
     u.searchParams.append('follower', followerCount);
     u.searchParams.append('image', channelImageUrl);
     u.searchParams.append('description', channelDescription);
+    u.searchParams.append('v', Date.now());
     return u.href;
 }
 
@@ -84,21 +85,15 @@ export default function Counter({ name }) {
                     images: [
                         {
                           url: generateOgImage({
-                                channelName: data?.channelName || name,
+                                channelName: data?.channelName,
                                 followerCount: count,
-                                channelImageUrl: data?.channelImageUrl || 'https://chzzkcounts.vercel.app/favicon.png',
-                                channelDescription: data?.channelDescription || '치지직 팔로워 라이브는 치지직 채널의 팔로워 수를 실시간으로 제공합니다.'
+                                channelImageUrl: data?.channelImageUrl,
+                                channelDescription: data?.channelDescription
                             }),
                             width: 1200,
                             height: 630,
                             alt: '치지직 팔로워 라이브',
                         },
-                        {
-                            url: data?.channelImageUrl || 'https://chzzkcounts.vercel.app/favicon.png',
-                            width: 512,
-                            height: 512,
-                            alt: '치지직 팔로워 라이브',
-                        }
                     ]
                 }}
             />
