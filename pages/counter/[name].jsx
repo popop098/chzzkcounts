@@ -131,7 +131,7 @@ export default function Counter({ name,initalData }) {
                         <Odometer value={count} format="(,ddd)" duration={2000}/>
                     </div>
                 </div>
-                <div className="flex justify-center my-6 hidden sm:block">
+                <div className="flex justify-center my-6">
                     <Line
                         width={100}
                         className={``}
