@@ -76,6 +76,12 @@ export default function Counter({ name,initalData }) {
             <NextSeo
                 title={`${initalData.channelName || name}`}
                 description={`${initalData.channelName || name} 채널의 팔로워 수를 실시간으로 제공합니다.`}
+                themeColor={'#06d086'}
+                twitter={
+                    {
+                        cardType: 'summary_large_image',
+                    }
+                }
                 openGraph={{
                     title: `${initalData.channelName || name} 실시간 팔로워 수`,
                     type: 'website',
