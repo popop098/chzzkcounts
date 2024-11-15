@@ -178,7 +178,7 @@ export default function Home() {
                         <div className="flex flex-col items-center gap-5 w-full mt-3">
                             <h2 className="text-white text-xl font-bold">추천 채널</h2>
                             {
-                                process.env.NODE_ENV !== "production" && (
+                                process.env.NODE_ENV === "production" && (
                                     <div className="flex flex-col justify-between w-2/3 gap-4">
                                         {
                                             recommendIsLoading && <p className="text-white">로딩 중...</p>
