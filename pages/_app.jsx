@@ -5,10 +5,12 @@ import {useState} from "react";
 import {DefaultSeo} from "next-seo";
 import { Analytics } from "@vercel/analytics/react"
 import { SpeedInsights } from "@vercel/speed-insights/next"
+import Snowfall from 'react-snowfall'
 export default function App({ Component, pageProps }) {
   const [queryClient] = useState(() => new QueryClient())
   return <>
     <QueryClientProvider client={queryClient}>
+        <Snowfall/>
         <Analytics />
         <SpeedInsights/>
       <DefaultSeo

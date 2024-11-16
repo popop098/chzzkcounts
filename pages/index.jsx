@@ -133,15 +133,16 @@ export default function Home() {
                         <h1 className={`text-white`}
                             style={{
                                 fontSize:"clamp(2rem, 5vw, 3rem)"
-                            }}>치지직 팔로워 라이브</h1>
+                            }}><span className="text-[#991414]">치지직</span> <span className="text-blue-700">팔로워</span> <span className="text-[#991414]">라이브</span>
+                        </h1>
                         <div className="flex items-center gap-2">
                             <div
-                                className="px-2 py-1 rounded-xl bg-gray-700 text-blue-600 text-sm hover:cursor-pointer hover:bg-gray-800"
+                                className="px-2 py-1 rounded-xl bg-gray-700 text-blue-600 text-sm hover:cursor-pointer hover:bg-gray-800 border-[0.1px] border-red-700"
                                 onClick={() => window.open('https://github.com/popop098/chzzkcounts/blob/main/README.md', '_blank')}>
                                 <p>안내 및 사용법</p>
                             </div>
                             <div
-                                className="px-2 py-1 rounded-xl bg-gray-700 text-gray-200 text-sm hover:cursor-pointer hover:bg-gray-800"
+                                className="px-2 py-1 rounded-xl bg-gray-700 text-gray-200 text-sm hover:cursor-pointer hover:bg-gray-800 border-[0.1px] border-blue-700"
                                 onClick={() => router.push("/ovlyhelper")}>
                                 <p>오버레이 생성</p>
                             </div>
@@ -151,7 +152,7 @@ export default function Home() {
 
                     <div className="relative w-96 mb-5">
                         <div ref={inputRef}
-                             className={`flex items-center bg-[#141517] rounded-3xl pr-2 pl-4 py-1 border-[0.1px] ${focused ? "border-[#06d086]" : "border-[#4d4d4d]"}`}>
+                             className={`flex items-center bg-[#141517] rounded-3xl pr-2 pl-4 py-1 border-[0.1px] ${focused ? "border-[#991414]" : "border-[#872a2a]"}`}>
                             <input
                                 className="text-[#c9cedc] w-full font-bold bg-[#141517] overflow-hidden overflow-ellipsis whitespace-nowrap outline-none"
                                 placeholder="스트리머 검색"
@@ -176,7 +177,7 @@ export default function Home() {
                             </button>
                         </div>
                         <div className="flex flex-col items-center gap-5 w-full mt-3">
-                            <h2 className="text-white text-xl font-bold">추천 채널</h2>
+                            <h2 className=" text-xl font-bold"><span className="text-blue-700">추천</span> <span className="text-[#991414]">채널</span></h2>
                             {
                                 process.env.NODE_ENV === "production" && (
                                     <div className="flex flex-col justify-between w-2/3 gap-4">
@@ -217,7 +218,7 @@ export default function Home() {
                             {
                                 focused && (
                                     <div ref={resultBoxRef}
-                                         className="absolute top-12 left-0 w-full bg-[#212325] rounded-xl max-h-64 overflow-y-scroll">
+                                         className="absolute top-12 left-0 w-full bg-[#212325] rounded-xl max-h-64 overflow-y-scroll border-[0.1px] border-[#991414]">
                                         {
                                             search.length >= 1 && searchLoading && <p className="text-white p-4">로딩 중...</p>
                                         }
@@ -243,7 +244,7 @@ export default function Home() {
                                                         </div>
                                                     </div>
                                                     <button
-                                                        className="bg-[#06d086] text-white rounded-3xl px-3 py-1 flex-none"
+                                                        className="bg-[#06d086] text-gray-50 rounded-3xl px-3 py-1 flex-none"
                                                         onClick={() => router.push("/counter/" + channel.channelName)}>
                                                         선택
                                                     </button>
@@ -256,7 +257,7 @@ export default function Home() {
                         </div>
                     </div>
                 </main>
-                <footer className="flex flex-col items-center justify-center w-full h-24 bg-gray-700">
+                <footer className="flex flex-col items-center justify-center w-full h-24 bg-gray-700 border-t-[0.1px] border-red-700">
                     <p className="text-center text-gray-300">해당 사이트는 <span
                         className="text-blue-600 hover:underline hover:cursor-pointer"
                         onClick={() => window.open("https://github.com/popop098/chzzkcounts", "_blank")}>오픈소스</span>로

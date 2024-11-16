@@ -57,7 +57,7 @@ export default function OvlyHelper() {
             <main
                 className={`flex h-full w-full flex-col items-center justify-center gap-5 p-24 bg-[#141517] space-y-5`}>
                 <div className="flex flex-col items-center space-y-4">
-                    <h1 className={`text-4xl text-white`}>오버레이 헬퍼</h1>
+                    <h1 className={`text-4xl bg-clip-text text-transparent bg-gradient-to-br from-red-500 to-blue-500`}>오버레이 헬퍼</h1>
                     {error
                         ? <div className="bg-red-500 text-white p-3 rounded-md flex flex-col items-center">
                             <p>오버레이 URL을 생성하는데 실패했습니다.</p>
@@ -96,7 +96,7 @@ export default function OvlyHelper() {
                                 <option value="white">흰색</option>
                             </select>
                             <div className="flex flex-col items-center gap-3 bg-gray-700 p-3 rounded-xl w-full">
-                                <h1 className="text-xl font-bold text-gray-200">라이브 모드</h1>
+                                <h1 className="text-xl font-bold bg-clip-text text-transparent bg-gradient-to-br from-red-500 to-blue-500">라이브 모드</h1>
                                 <form className="flex flex-col text-gray-200">
                                     <div className="flex items-center gap-3">
                                         <input type="radio" id="live-y" name="live" value="y" onChange={(e) => setLive(e.target.value)}
@@ -111,7 +111,7 @@ export default function OvlyHelper() {
                                 </form>
                             </div>
                             <div className="w-full h-1 bg-gray-700/50 rounded"/>
-                            <h2 className="text-xl font-bold text-gray-200">미리보기</h2>
+                            <h2 className="text-xl font-bold bg-clip-text text-transparent bg-gradient-to-br from-red-500 to-blue-500">미리보기</h2>
                             <div className="p-5 bg-gray-700 rounded-xl flex flex-col items-center justify-center w-full h-fit gap-3 "
                                  style={{
                                      color: color
@@ -134,11 +134,11 @@ export default function OvlyHelper() {
                                 }}/>
                             </div>
                             <code className="px-3 py-5 max-w-sm overflow-x-scroll rounded-md bg-gray-700 text-gray-200">
-                                {"https://chzzkcounts.vercel.app/overlay/" + (channelId.length >= 1 ? channelId : "") + (color.length >= 1 ? "?color=" + color : "") + (live === "y" ? "&live=y" : "&live=n")}
+                                {"https://chzzkcounts.live/overlay/" + (channelId.length >= 1 ? channelId : "") + (color.length >= 1 ? "?color=" + color : "") + (live === "y" ? "&live=y" : "&live=n")}
                             </code>
                             <button
-                                onClick={() => copyToClipboard("https://chzzkcounts.vercel.app/overlay/" + (channelId.length >= 1 ? channelId : "") + (color.length >= 1 ? "?color=" + color : "") + (live === "y" ? "&live=y" : "&live=n"))}
-                                className={`px-3 py-2 rounded-md ${!(channelId.length >= 1 && isValidHexFormat(channelId) && color.length >= 1) ? "bg-gray-800 hover:cursor-not-allowed":"bg-gray-700"} text-gray-200 w-full`}
+                                onClick={() => copyToClipboard("https://chzzkcounts.live/overlay/" + (channelId.length >= 1 ? channelId : "") + (color.length >= 1 ? "?color=" + color : "") + (live === "y" ? "&live=y" : "&live=n"))}
+                                className={`px-3 py-2 rounded-md ${!(channelId.length >= 1 && isValidHexFormat(channelId) && color.length >= 1) ? "bg-gray-800 hover:cursor-not-allowed":"bg-gray-700"} text-gray-200 w-full bg-gradient-to-br from-red-700 to-blue-800`}
                                 disabled={!(channelId.length >= 1 && isValidHexFormat(channelId) && color.length >= 1)}>
                                 {
                                     !(channelId.length >= 1 && isValidHexFormat(channelId) && color.length >= 1) ? "생성불가" : "생성"

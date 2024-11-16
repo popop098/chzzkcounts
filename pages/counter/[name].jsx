@@ -104,7 +104,7 @@ export default function Counter({ name,initalData }) {
                 }}
             />
             <div className="h-full bg-[#141517] p-5">
-                <div className="w-full px-5 py-1 rounded-xl bg-gray-700 text-gray-200 text-xl hover:cursor-pointer"
+                <div className="w-full px-5 py-1 rounded-xl bg-gray-700 text-gray-200 text-xl hover:cursor-pointer border-[0.1px] border-red-700"
                      onClick={() => router.back()}>
                     ◀ 이전
                 </div>

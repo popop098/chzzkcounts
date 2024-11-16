@@ -2483,6 +2483,11 @@ react-dom@^18:
     loose-envify "^1.1.0"
     scheduler "^0.23.2"
 
+react-fast-compare@^3.2.2:
+  version "3.2.2"
+  resolved "https://registry.yarnpkg.com/react-fast-compare/-/react-fast-compare-3.2.2.tgz#929a97a532304ce9fee4bcae44234f1ce2c21d49"
+  integrity sha512-nsO+KSNgo1SbJqJEYRE9ERzo7YtYbou/OqjSQKxV7jcKox7+usiUVZOAC+XnDOABXggQTno0Y1CpVnuWEc1boQ==
+
 react-is@^16.13.1:
   version "16.13.1"
   resolved "https://registry.yarnpkg.com/react-is/-/react-is-16.13.1.tgz#789729a4dc36de2999dc156dd6c1d9c18cea56a4"
@@ -2510,6 +2515,13 @@ react-query@^3.39.3:
     "@babel/runtime" "^7.5.5"
     broadcast-channel "^3.4.1"
     match-sorter "^6.0.2"
+
+react-snowfall@^2.1.1:
+  version "2.1.1"
+  resolved "https://registry.yarnpkg.com/react-snowfall/-/react-snowfall-2.1.1.tgz#0ad21415b3256af4522b7264b3ad61be5ba22c7d"
+  integrity sha512-29F2U+skZc8uYYYzVP2Ub4mbc5nPH+0jYr1yXDysaPCnHdl9nVUN3h/ygg6PYw2LH53q6ZQCNfj30kVliaPvBg==
+  dependencies:
+    react-fast-compare "^3.2.2"
 
 react-universal-interface@^0.6.2:
   version "0.6.2"
