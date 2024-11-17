@@ -1,5 +1,13 @@
-# 치지직 실시간 팔로워 카운트
-이 프로젝트는 치지직 채널의 실시간 팔로워 수를 보여주는 프로젝트입니다.
+<div align="center">
+  <img src="public/favicon.png" alt="치지직 팔로워 라이브" width="512" height="512"/>
+  <div>
+    <h1>치지직 팔로워 라이브</h1>
+    <p>치지직 채널의 실시간 팔로워 수를 보여주는 프로젝트입니다.</p>
+    <a href="https://www.chzzkcounts.live">메인 사이트</a>
+    |
+    <a href="https://www.chzzkcounts.live/ovlyhelper">오버레이 헬퍼</a>
+  </div>
+</div>
 
 ## 후원하기
 <a href="https://www.buymeacoffee.com/popop098"><img src="https://img.buymeacoffee.com/button-api/?text=Donation&emoji=❤️&slug=popop098&button_colour=FFDD00&font_colour=000000&font_family=Poppins&outline_colour=000000&coffee_colour=ffffff" /></a>
@@ -64,10 +72,10 @@ yarn dev
 
 ## 오버레이 사용법
 1. OBS에서 브라우저 소스 추가
-2. URL에 `https://chzzkcounts.vercel.app/overlay/[자신의_채널_아이디]` 입력
+2. URL에 `https://www.chzzkcounts.live/overlay/[자신의_채널_아이디]` 입력
 3. 너비, 높이, 위치, 크기 등을 조절하여 사용
 4. `?color=[색상명]`를 추가하여 텍스트 컬러를 조절할 수 있습니다.(옵션, 미입력시 기본 `white`사용)
-   - 예시: `https://chzzkcounts.vercel.app/overlay/[자신의_채널_아이디]?color=red`
+   - 예시: `https://www.chzzkcounts.live/overlay/[자신의_채널_아이디]?color=red`
    - < 지원하는 색상 >
      - `red`
      - `green`
@@ -81,15 +89,14 @@ yarn dev
      - `black`
      - `white` (기본값)
 5. `?live=y`를 추가하여 라이브 중임을 표시할 수 있습니다.(옵션, 미입력시 기본 `y` 사용)
-   - 예시: `https://chzzkcounts.vercel.app/overlay/[자신의_채널_아이디]?live=y`
+   - 예시: `https://www.chzzkcounts.live/overlay/[자신의_채널_아이디]?live=y`
 6. 만일 두가지 옵션을 동시에 사용하고 싶다면 `&`를 사용하여 연결합니다.
-   - 예시: `https://chzzkcounts.vercel.app/overlay/[자신의_채널_아이디]?color=red&live=y`
+   - 예시: `https://www.chzzkcounts.live/overlay/[자신의_채널_아이디]?color=red&live=y`
    
 ## 오버레이 헬퍼
 - 위 사용법이 어렵다면 아래의 링크를 통해 간편하게 오버레이를 생성할 수 있습니다.
-  - [치지직 실시간 팔로워 카운트 오버레이 헬퍼](https://chzzkcounts.vercel.app/ovlyhelper)
+  - [치지직 실시간 팔로워 카운트 오버레이 헬퍼](https://www.chzzkcounts.live/ovlyhelper)
   - 혹은 메인 페이지 내에 `오버레이 생성` 버튼을 통하여 이동할 수 있습니다.
-
 
 ## TODO
 - [ ] 카운트 업/다운에 따른 텍스트 색상 변경

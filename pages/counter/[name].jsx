@@ -74,8 +74,8 @@ export default function Counter({ name,initalData }) {
     return (
         <>
             <NextSeo
-                title={`${initalData.channelName || name}`}
-                description={`${initalData.channelName || name} 채널의 팔로워 수를 실시간으로 제공합니다.`}
+                title={initalData.channelName}
+                description={initalData.channelDescription}
                 themeColor={'#06d086'}
                 twitter={
                     {
@@ -83,7 +83,7 @@ export default function Counter({ name,initalData }) {
                     }
                 }
                 openGraph={{
-                    title: `${initalData.channelName || name} 실시간 팔로워 수`,
+                    title: initalData.channelName,
                     type: 'website',
                     locale: 'ko_KR',
                     url: 'https://www.chzzkcounts.live/counter/'+initalData.channelName || name,

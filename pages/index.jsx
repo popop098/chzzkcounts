@@ -193,7 +193,7 @@ export default function Home() {
                                                     <div className="flex items-center">
                                                         <Image
                                                             src={channel.channelImageUrl !== null && channel.channelImageUrl}
-                                                            alt={channel.name} width={60}
+                                                            alt={channel.channelName} width={60}
                                                             height={60}
                                                             className="rounded-full hover:cursor-pointer w-[60px] h-[60px]"
                                                             onClick={() => window.open('https://chzzk.naver.com/' + channel.id)}
@@ -233,7 +233,7 @@ export default function Home() {
                                                     <div className="flex items-center">
                                                         <Image
                                                             src={channel.channelImageUrl !== null && channel.channelImageUrl}
-                                                            alt={channel.name} width={40}
+                                                            alt={channel.channelName} width={40}
                                                             height={40}
                                                             className="rounded-full hover:cursor-pointer w-[40px] h-[40px]"
                                                             onClick={() => window.open('https://chzzk.naver.com/' + channel.channelId)}
