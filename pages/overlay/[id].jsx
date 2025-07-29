@@ -1,91 +1,89 @@
-import { useEffect, useState } from 'react';
-import useInfoById from "@/hooks/useInfoById";
+import { useRouter } from 'next/router';
+import { useEffect, useState, useRef } from 'react';
+import useInfoById from '@/hooks/useInfoById';
+import dynamic from 'next/dynamic';
 import Image from "next/image";
-import {NextSeo} from "next-seo";
-import dynamic from "next/dynamic";
 
 const Odometer = dynamic(() => import('react-odometerjs'), {
     ssr: false,
     loading: () => <div>0</div>
 });
 
-export default function CounterById({ id, color, live }) {
-    const { data, isLoading, isError } = useInfoById(id);
-    const [count, setCount] = useState(0);
-    useEffect(() => {
-        let interval;
-        fetch(`/api/info?id=${id}`).then((res)=>res.json()).then((data)=>{
-            setCount(data.followerCount);
-        });
-        interval = setInterval(() => {
-            fetch(`/api/info?id=${id}`)
-                .then((res)=>res.json()).then((data)=>{
-                const currentCount = data.followerCount;
-                setCount((prevState) => {
-                    if(currentCount === prevState) return prevState;
-                    return currentCount;
-                });
-            });
-        }, 2000);
-        return () => clearInterval(interval);
-    }, [id]);
-    return (
-        <>
-            <NextSeo
-                title={`${data?.channelName}`}
-                description={`${data?.channelName} 채널의 팔로워 수를 실시간으로 제공합니다.`}
-                openGraph={{
-                    title: `${data?.channelName} 실시간 팔로워 수`,
-                    type: 'website',
-                    locale: 'ko_KR',
-                    url: 'https://www.chzzkcounts.live/overlay/'+id,
-                    siteName: '치지직 팔로워 라이브',
-                    images: [
-                        {
-                            url: data?.channelImageUrl || 'https://chzzkcounts.vercel.app/favicon.png',
-                            width: 512,
-                            height: 512,
-                            alt: '치지직 팔로워 라이브',
-                        }
-                    ]
-                }}
-            />
-            <div className={`overflow-hidden w-fit`}
-                style={{
-                    color: color
-                }}>
-                <div
-                    className="flex flex-col items-center justify-center gap-5 w-fit">
-                    <div className="flex flex-col items-center gap-5">
-                        <div className="relative flex justify-center items-end">
-                            {
-                                live === "y" && data?.openLive && (
-                                    <div className="absolute px-3 py-0.5 bg-red-700 rounded-lg -mb-3 text-gray-200">
-                                        <span className="text-sm font-bold">LIVE</span>
-                                    </div>
-                                )
-                            }
-                            <Image src={data?.channelImageUrl} alt={data?.channelName} width={130} height={130}
-                                   className={`rounded-full p-1 w-[130px] h-[130px] ${live === "y" && data?.openLive && "border-2 border-[#06d086]"} hover:cursor-pointer`}
-                                   onClick={() => window.open('https://chzzk.naver.com/' + data.channelId)}
-                                   loading="lazy" unoptimized/>
-                        </div>
+const Celebration = ({ count }) => (
+    <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50 z-50">
+        <div className="text-center text-white text-4xl md:text-6xl font-bold animate-bounce">
+            🎉 축하합니다! {count.toLocaleString()} 팔로워 달성! 🎉
+        </div>
+    </div>
+);
 
-                        <h2 className="text-5xl font-bold">{data?.channelName}</h2>
-                    </div>
-                    <div className={`font-extrabold sm:text-9xl text-8xl`}>
-                        <Odometer value={count} format="(,ddd)" duration={2000}/>
+const DefaultOverlay = ({ data, color, live }) => (
+    <div className="w-full h-full bg-transparent p-4 text-white" style={{ color }}>
+        <div className="flex flex-col items-center justify-center h-full gap-2">
+            <div className="relative">
+                {live === 'y' && data?.openLive && (
+                    <div className="absolute -top-2 -right-2 px-2 py-0.5 bg-red-600 rounded-full text-xs font-bold animate-pulse">LIVE</div>
+                )}
+                <Image src={data?.channelImageUrl || '/favicon.png'} alt={data?.channelName} width={80} height={80} className={`rounded-full ${live === 'y' && data?.openLive ? 'border-4 border-green-500' : ''}`} />
+            </div>
+            <h1 className="text-2xl font-bold">{data?.channelName}</h1>
+            <div className="text-4xl font-extrabold">
+                <Odometer value={data?.followerCount || 0} format="(,ddd)" />
+            </div>
+        </div>
+    </div>
+);
+
+const ProgressBarOverlay = ({ data, goal, color }) => {
+    const percentage = goal > 0 ? Math.min((data?.followerCount / goal) * 100, 100) : 0;
+
+    return (
+        <div className="w-full h-full bg-transparent p-4 text-white" style={{ color }}>
+            <div className="flex flex-col items-center justify-center h-full gap-3">
+                <h2 className="text-xl font-bold">팔로워 목표: {goal.toLocaleString()}</h2>
+                <div className="w-full bg-gray-700 rounded-full h-8 border-2 border-gray-500">
+                    <div className="bg-green-500 h-full rounded-full text-center font-bold text-lg flex items-center justify-center" style={{ width: `${percentage}%` }}>
+                        {percentage.toFixed(1)}%
                     </div>
                 </div>
+                <div className="text-2xl font-bold">
+                    <span>{data?.followerCount.toLocaleString()} / {goal.toLocaleString()}</span>
+                </div>
             </div>
-        </>
-
+        </div>
     );
-}
+};
 
-export async function getServerSideProps(context) {
-    const {id} = context.params;
-    const color = context.query.color || 'white';
-    const live = context.query.live || 'y';
-    return {props: {id,color,live}};
+export default function Overlay() {
+    const router = useRouter();
+    const { id, type = 'default', goal = 1000, color = 'white', live = 'n' } = router.query;
+    const { data } = useInfoById(id, { refreshInterval: 5000 });
+    const [showCelebration, setShowCelebration] = useState(false);
+    const prevFollowersRef = useRef(data?.followerCount);
+
+    useEffect(() => {
+        if (data && prevFollowersRef.current < goal && data.followerCount >= goal && type === 'progress') {
+            setShowCelebration(true);
+            const timer = setTimeout(() => setShowCelebration(false), 10000); // 10초 후 사라짐
+            return () => clearTimeout(timer);
+        }
+    }, [data, goal, type]);
+
+    useEffect(() => {
+        if (data) {
+            prevFollowersRef.current = data.followerCount;
+        }
+    }, [data]);
+
+    if (!id) return <div>ID를 제공해야 합니다.</div>;
+
+    return (
+        <div className="absolute inset-0">
+            {showCelebration && <Celebration count={goal} />}
+            {type === 'progress'
+                ? <ProgressBarOverlay data={data} goal={parseInt(goal)} color={color} />
+                : <DefaultOverlay data={data} color={color} live={live} />
+            }
+        </div>
+    );
 }
