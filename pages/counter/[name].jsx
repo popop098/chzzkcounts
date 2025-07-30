@@ -177,8 +177,6 @@ export default function Counter({ name, initialData }) {
                 }]}
                 twitter={{ 
                     cardType: 'summary_large_image',
-                    handle: '@chzzk_official',
-                    site: '@chzzk_official',
                  }}
                 openGraph={{
                     title: `${channelName} - 실시간 팔로워 수`, 

@@ -3,7 +3,7 @@ import useSearch from "@/hooks/useSearch";
 import Image from "next/image";
 import { useRouter } from "next/router";
 import { NextSeo, SocialProfileJsonLd } from "next-seo";
-import useRecommend from "@/hooks/useRecommand";
+import {ChzzkClient} from "chzzk";
 
 // Reusable component for displaying a channel item
 const ChannelListItem = memo(({ channel, imageSize = 60, showDescription = false }) => {
@@ -212,18 +212,9 @@ const SearchBar = () => {
     );
 };
 
-const RecommendedChannels = memo(() => {
-    const {
-        data: recommendData,
-        isError: recommendIsErr,
-        isLoading: recommendIsLoading,
-        isSuccess: recommendIsSuccess
-    } = useRecommend();
-
+const RecommendedChannels = memo(({ recommendData }) => {
     const renderContent = () => {
-        if (recommendIsLoading) return <p className="text-white">로딩 중...</p>;
-        if (recommendIsErr) return <p className="text-white">에러 발생: {recommendData?.message}</p>;
-        if (recommendIsSuccess && recommendData?.length > 0) {
+        if (recommendData && recommendData.length > 0) {
             return recommendData.map((channel) => (
                 <ChannelListItem key={channel.id} channel={channel} imageSize={60} />
             ));
@@ -257,9 +248,10 @@ const PageFooter = memo(() => (
 ));
 PageFooter.displayName = 'PageFooter';
 
-export default function Home() {
+export default function Home({ recommendChannels, recommendData }) {
     const router = useRouter();
     const canonicalUrl = `https://www.chzzkcounts.live${router.asPath}`;
+    const description = `치지직(CHZZK) 스트리머의 팔로워 수를 실시간으로 확인하고, 채널 성장을 추적하세요. 실시간 팔로워 수, 그래프 등 다양한 정보를 제공합니다. 지금 방송중인 채널은? ${recommendChannels}`;
 
     return (
         <>
@@ -267,15 +259,15 @@ export default function Home() {
             <div className="flex flex-col min-h-screen bg-[#141517]">
                 <NextSeo
                     title="메인 - 치지직 팔로워 라이브"
-                    description="치지직(CHZZK) 스트리머의 팔로워 수를 실시간으로 확인하고, 채널 성장을 추적하세요. 실시간 팔로워 수, 그래프 등 다양한 정보를 제공합니다."
+                    description={description}
                     canonical={canonicalUrl}
                     additionalMetaTags={[{
                         name: 'keywords',
-                        content: '치지직, chzzk, 팔로워, 라이브, 실시간, 카운터, 스트리머, 통계, 순위, 구독자',
+                        content: '치지직, chzzk, 팔로워, 라이브, 실시간, 카운터, 스트리머, 통계, 순위, 구독자, 그래프, 차트, 분석',
                     }]}
                     openGraph={{
                         title: '메인 - 치지직 팔로워 라이브',
-                        description: '치지직(CHZZK) 스트리머의 팔로워 수를 실시간으로 확인하세요.',
+                        description: '치지직(CHZZK) 스트리머의 팔로워 수를 실시간으로 확인하세요. 버튜버, 신입 스트리머, 종합 게임 스트리머 등 다양한 스트리머의 실시간 팔로워 수 변동 현황을 한눈에 확인 할 수 있어요. 지금 방송중인 채널은? ' + recommendChannels,
                         type: 'website',
                         locale: 'ko_KR',
                         url: canonicalUrl,
@@ -301,10 +293,31 @@ export default function Home() {
                 <main className="flex-grow flex flex-col items-center justify-center gap-5 p-4">
                     <PageHeader />
                     <SearchBar />
-                    <RecommendedChannels />
+                    <RecommendedChannels recommendData={recommendData} />
                 </main>
                 <PageFooter />
             </div>
         </>
     );
+}
+
+export async function getServerSideProps() {
+    const client = new ChzzkClient();
+    const result = await client.channel.recommendations();
+    const initData = result.map((channel) => ({
+        id: channel.channelId,
+        channelName: channel.channel.channelName,
+        channelImageUrl: channel.channel.channelImageUrl,
+        openLive: channel.streamer.openLive,
+    }))
+    const recommendData = initData.slice(0, 5);
+
+    const recommendChannels = initData.slice(0,10).map((channel) => channel.channelName).join(', ');
+
+    return {
+        props: {
+            recommendChannels,
+            recommendData,
+        },
+    };
 }
