@@ -1,0 +1,61 @@
+{
+  "name": "치지직(Chzzk) 팔로워 라이브",
+  "short_name": "치지직 팔로워 라이브",
+  "description": "치지직 팔로워 라이브는 치지직 채널의 팔로워 수를 실시간으로 제공합니다.",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#ffffff",
+  "theme_color": "#000000",
+  "icons": [
+    {
+      "src": "/AppIcons/android/mipmap-hdpi/app_icons.png",
+      "sizes": "72x72",
+      "type": "image/png"
+    },
+    {
+      "src": "/AppIcons/android/mipmap-mdpi/app_icons.png",
+      "sizes": "48x48",
+      "type": "image/png"
+    },
+    {
+      "src": "/AppIcons/android/mipmap-xhdpi/app_icons.png",
+      "sizes": "96x96",
+      "type": "image/png"
+    },
+    {
+      "src": "/AppIcons/android/mipmap-xxhdpi/app_icons.png",
+      "sizes": "144x144",
+      "type": "image/png"
+    },
+    {
+      "src": "/AppIcons/android/mipmap-xxxhdpi/app_icons.png",
+      "sizes": "192x192",
+      "type": "image/png"
+    },
+    {
+      "src": "/AppIcons/Assets.xcassets/AppIcon.appiconset/120.png",
+      "sizes": "120x120",
+      "type": "image/png"
+    },
+    {
+      "src": "/AppIcons/Assets.xcassets/AppIcon.appiconset/152.png",
+      "sizes": "152x152",
+      "type": "image/png"
+    },
+    {
+      "src": "/AppIcons/Assets.xcassets/AppIcon.appiconset/167.png",
+      "sizes": "167x167",
+      "type": "image/png"
+    },
+    {
+      "src": "/AppIcons/Assets.xcassets/AppIcon.appiconset/180.png",
+      "sizes": "180x180",
+      "type": "image/png"
+    },
+    {
+      "src": "/AppIcons/Assets.xcassets/AppIcon.appiconset/1024.png",
+      "sizes": "1024x1024",
+      "type": "image/png"
+    }
+  ]
+}
