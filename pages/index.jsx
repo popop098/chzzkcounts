@@ -263,7 +263,7 @@ export default function Home() {
 
     return (
         <>
-            <PopupComp />
+            {/*<PopupComp />*/}
             <div className="flex flex-col min-h-screen bg-[#141517]">
                 <NextSeo
                     title="메인 - 치지직 팔로워 라이브"

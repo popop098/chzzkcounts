@@ -17,13 +17,13 @@ const Odometer = dynamic(() => import('react-odometerjs'), {
 
 // Helper to generate Open Graph image URL
 const generateOgImage = ({ channelName, followerCount, channelImageUrl, channelDescription }) => {
-    const mainUrl = process.env.NODE_ENV === 'development' ? 'http://localhost:3000' : 'https://chzzkcounts.live';
+    const mainUrl = process.env.NODE_ENV === 'development' ? 'http://localhost:3000' : 'https://www.chzzkcounts.live';
     const u = new URL(`${mainUrl}/api/og`);
     u.searchParams.append('name', channelName);
     u.searchParams.append('follower', followerCount);
     u.searchParams.append('image', channelImageUrl);
     u.searchParams.append('description', channelDescription);
-    u.searchParams.append('v', Date.now().toString());
+    // u.searchParams.append('v', Date.now().toString());
     return u.href;
 };
 
@@ -216,7 +216,7 @@ export default function Counter({ name, initialData }) {
 
 export async function getServerSideProps(context) {
     const { name } = context.params;
-    const mainUrl = process.env.NODE_ENV === 'development' ? 'http://localhost:3000' : 'https://chzzkcounts.live';
+    const mainUrl = process.env.NODE_ENV === 'development' ? 'http://localhost:3000' : 'https://www.chzzkcounts.live';
     try {
         const res = await fetch(`${mainUrl}/api/info?name=${encodeURIComponent(name)}`);
         if (!res.ok) {

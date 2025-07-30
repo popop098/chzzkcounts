@@ -47,8 +47,6 @@ export default function Search({q,initialResult}) {
                 title={`'${q}' 검색 결과`}
                 description={`'${q}'에 대한 치지직 채널 검색 결과입니다. 실시간 팔로워 수를 확인하세요.`}
                 canonical={canonicalUrl}
-                noindex={true}
-                nofollow={true}
                 openGraph={{
                     title: `'${q}' 검색 결과 - 치지직 팔로워 라이브`,
                     description: `'${q}'에 대한 채널 검색 결과입니다.`,
@@ -66,7 +64,7 @@ export default function Search({q,initialResult}) {
                     ]
                 }}
             />
-            <main className="flex h-full max-h-fit w-full flex-col items-center gap-5 p-4 md:p-24 bg-[#141517] space-y-5">
+            <main className="flex min-h-full max-h-fit w-full flex-col items-center gap-5 p-4 md:p-24 bg-[#141517] space-y-5">
                 <div className="w-full md:w-auto px-5 py-2 rounded-xl bg-gray-700 text-gray-200 text-xl hover:cursor-pointer text-center"
                      onClick={() => router.back()}>
                     ◀ 이전
@@ -165,18 +163,16 @@ export default function Search({q,initialResult}) {
 
 export async function getServerSideProps({query}) {
     const {q} = query;
-    if (!q) {
+    if (!q || q.trim() === "") {
         return { props: { q: "", initialResult: [] } };
     }
     try {
         const client = new ChzzkClient();
-        const result = await client.search.channels(q, {
-            size: 20
-        });
+        const result = await client.search.channels(q);
         return {
             props: {
                 q,
-                initialResult: result.channels
+                initialResult: result.channels.slice(0,20)
             }
         }
     } catch (e) {
