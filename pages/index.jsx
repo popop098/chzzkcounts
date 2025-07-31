@@ -317,7 +317,7 @@ export async function getServerSideProps () {
     //             openLive: channel.streamer.openLive,
     //         }
     //     }))
-    const initData = result.map(async (channel) => ({
+    const initData = result.map((channel) => ({
         id: channel.channelId,
         channelName: channel.channel.channelName,
         channelImageUrl: channel.channel.channelImageUrl,
