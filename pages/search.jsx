@@ -161,7 +161,7 @@ export default function Search({q,initialResult}) {
 }
 
 export async function getServerSideProps({query}) {
-    import {ChzzkClient} from "chzzk";
+    const {ChzzkClient} = await import("chzzk");
     const {q} = query;
     if (!q || q.trim() === "") {
         return { props: { q: "", initialResult: [] } };
