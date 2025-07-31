@@ -5,7 +5,14 @@ import { useState } from "react";
 import { DefaultSeo } from "next-seo";
 import { Analytics } from "@vercel/analytics/react";
 import { SpeedInsights } from "@vercel/speed-insights/next";
+import localFont from 'next/font/local'
 
+const pretendard = localFont({
+    src: '../public/fonts/PretendardVariable.woff2',
+    display: 'swap',
+    weight: '45 920',
+    variable: '--font-pretendard',
+})
 // SEO configuration
 const DEFAULT_SEO_CONFIG = {
     defaultTitle: "치지직 팔로워 라이브",
@@ -47,7 +54,9 @@ export default function App({ Component, pageProps }) {
                 <Analytics />
                 <SpeedInsights />
                 <DefaultSeo {...DEFAULT_SEO_CONFIG} />
-                <Component {...pageProps} />
+                <main className={`${pretendard.variable} font-sans`}>
+                    <Component {...pageProps} />
+                </main>
             </QueryClientProvider>
         </>
     );

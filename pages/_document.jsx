@@ -4,12 +4,6 @@ export default function Document() {
   return (
     <Html lang="en">
       <Head>
-        <link
-          rel="stylesheet"
-          href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard-dynamic-subset.min.css"
-          as="style"
-          crossOrigin="anonymous"
-        />
         <link rel="manifest" href="/manifest.json" />
         <meta name="theme-color" content="#000000" />
           <link rel="apple-touch-startup-image"

@@ -30,6 +30,8 @@ const ChannelListItem = memo(({ channel, imageSize = 60, showDescription = false
                     style={{ width: `${imageSize}px`, height: `${imageSize}px` }}
                     onClick={handleImageClick}
                     quality={100}
+                    loading="eager"
+                    priority
                 />
                 <div className="ml-4">
                     <h2 className="text-white font-bold">{channel.channelName}</h2>
@@ -107,7 +109,7 @@ const PageHeader = memo(() => {
     const router = useRouter();
     return (
         <div className="flex flex-col items-center text-center px-4">
-            <Image src={'/favicon.png'} alt={'logo'} width={100} height={100} quality={100}/>
+            <Image src={'/favicon.png'} alt={'logo'} width={100} height={100} quality={100} loading="eager" priority/>
             <h1 className="text-white text-3xl sm:text-4xl md:text-5xl font-bold">
                 <span className="text-emerald-400">치지직 팔로워 라이브</span>
             </h1>
