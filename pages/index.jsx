@@ -306,7 +306,7 @@ export default function Home({ recommendChannels, recommendData }) {
 export async function getServerSideProps () {
     const {ChzzkClient} = await import("chzzk");
     const client = new ChzzkClient();
-    const result = await client.channel.recommendations();
+    const result = await client.channel.recommendations()
     const initData = await Promise.all(
         result.map(async (channel) => {
             const bluredChannelImage = await getBlurImg(channel.channel.channelImageUrl)
