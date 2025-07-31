@@ -106,7 +106,7 @@ const CounterHeader = memo(({ data }) => {
                         className={`rounded-full p-1 w-[100px] h-[100px] md:w-[130px] md:h-[130px] ${data?.openLive ? "border-2 border-[#06d086]" : ""} hover:cursor-pointer`}
                         onClick={handleChannelLink}
                         priority
-                        unoptimized
+                        quality={100}
                     />
                 </div>
                 <h2 className="font-bold text-2xl md:text-4xl text-center">

@@ -2,7 +2,6 @@ import useSearch from "@/hooks/useSearch";
 import Image from "next/image";
 import { useState, useEffect, useRef } from "react";
 import { useRouter } from "next/router";
-import {ChzzkClient} from "chzzk";
 import {NextSeo} from "next-seo";
 export default function Search({q,initialResult}) {
     const [keyword, setKeyword] = useState(q);
@@ -113,7 +112,7 @@ export default function Search({q,initialResult}) {
                                                        alt={channel.channelName}
                                                        width={40} height={40}
                                                        className="rounded-full w-[40px] h-[40px]"
-                                                       unoptimized/>
+                                                       quality={100}/>
                                                 <div className="ml-4">
                                                     <h2 className="text-white font-bold">{channel.channelName}</h2>
                                                     <p className="text-[#c9cedc]">{channel.channelDescription.length > 15 ? channel.channelDescription.slice(0, 15) + "..." : channel.channelDescription}</p>
@@ -137,7 +136,7 @@ export default function Search({q,initialResult}) {
                                            width={50}
                                            height={50}
                                            className="rounded-full w-[50px] h-[50px]"
-                                           unoptimized/>
+                                           quality={100}/>
                                     <div>
                                         <h2 className="text-white font-bold text-lg">{channel.channelName}</h2>
                                         <p className="text-[#c9cedc]">{channel.followerCount.toLocaleString()}명 팔로워</p>
@@ -162,6 +161,7 @@ export default function Search({q,initialResult}) {
 }
 
 export async function getServerSideProps({query}) {
+    import {ChzzkClient} from "chzzk";
     const {q} = query;
     if (!q || q.trim() === "") {
         return { props: { q: "", initialResult: [] } };
