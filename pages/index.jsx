@@ -4,7 +4,8 @@ import Image from "next/image";
 import { useRouter } from "next/router";
 import { NextSeo, SocialProfileJsonLd } from "next-seo";
 import {ChzzkClient} from "chzzk";
-
+import LogoImage from "../public/favicon.png"
+import getBlurImg from "@/hooks/getBlurImg";
 // Reusable component for displaying a channel item
 const ChannelListItem = memo(({ channel, imageSize = 60, showDescription = false }) => {
     const router = useRouter();
@@ -17,7 +18,6 @@ const ChannelListItem = memo(({ channel, imageSize = 60, showDescription = false
         const channelId = channel.channelId || channel.id;
         window.open('https://chzzk.naver.com/' + channelId, '_blank');
     }, [channel.channelId, channel.id]);
-
     return (
         <div className="flex items-center justify-between w-full">
             <div className="flex items-center">
@@ -30,8 +30,8 @@ const ChannelListItem = memo(({ channel, imageSize = 60, showDescription = false
                     style={{ width: `${imageSize}px`, height: `${imageSize}px` }}
                     onClick={handleImageClick}
                     quality={100}
-                    loading="eager"
-                    priority
+                    loading="lazy"
+                    blurDataURL={channel.blurChannelImage}
                 />
                 <div className="ml-4">
                     <h2 className="text-white font-bold">{channel.channelName}</h2>
@@ -109,8 +109,8 @@ const PageHeader = memo(() => {
     const router = useRouter();
     return (
         <div className="flex flex-col items-center text-center px-4">
-            <Image src={'/favicon.png'} alt={'logo'} width={100} height={100} quality={100} loading="eager" priority/>
-            <h1 className="text-white text-3xl sm:text-4xl md:text-5xl font-bold">
+            <Image src={LogoImage} alt={'logo'} width={100} height={100} quality={75} priority placeholder="blur"/>
+            <h1 className="text-white text-3xl sm:text-4xl md:text-5xl font-bold" >
                 <span className="text-emerald-400">치지직 팔로워 라이브</span>
             </h1>
             <div className="flex items-center gap-2 mt-4">
@@ -303,16 +303,21 @@ export default function Home({ recommendChannels, recommendData }) {
     );
 }
 
-export async function getServerSideProps() {
+export async function getServerSideProps () {
     const {ChzzkClient} = await import("chzzk");
     const client = new ChzzkClient();
     const result = await client.channel.recommendations();
-    const initData = result.map((channel) => ({
-        id: channel.channelId,
-        channelName: channel.channel.channelName,
-        channelImageUrl: channel.channel.channelImageUrl,
-        openLive: channel.streamer.openLive,
-    }))
+    const initData = await Promise.all(
+        result.map(async (channel) => {
+            const bluredChannelImage = await getBlurImg(channel.channel.channelImageUrl)
+            return {
+                id: channel.channelId,
+                channelName: channel.channel.channelName,
+                channelImageUrl: channel.channel.channelImageUrl,
+                blurChannelImage: bluredChannelImage,
+                openLive: channel.streamer.openLive,
+            }
+        }))
     const recommendData = initData.slice(0, 5);
 
     const recommendChannels = initData.slice(0,10).map((channel) => channel.channelName).join(', ');

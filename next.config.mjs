@@ -14,7 +14,8 @@ const nextConfig = {
         protocol: 'https',
         hostname:"ssl.pstatic.net",
       }
-    ]
+    ],
+    formats: ['image/avif', 'image/webp'],
   }
 };
 
