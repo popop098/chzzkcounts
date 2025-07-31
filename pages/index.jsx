@@ -108,7 +108,7 @@ const PageHeader = memo(() => {
     const router = useRouter();
     return (
         <div className="flex flex-col items-center text-center px-4">
-            <Image src={LogoImage} alt={'logo'} width={100} height={100} quality={75}/>
+            <Image src={LogoImage} alt={'logo'} width={100} height={100} quality={75} priority/>
             <h1 className="text-white text-3xl sm:text-4xl md:text-5xl font-bold" >
                 <span className="text-emerald-400">치지직 팔로워 라이브</span>
             </h1>
